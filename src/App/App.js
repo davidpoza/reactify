@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ResponsiveDrawer from '../components/responsive-drawer';
 // Css
 import './App.css';
+
+const Home = () => {
+  return <p>Homepage</p>;
+}
+
+const Search = () => {
+  return <p>Search</p>;
+}
+
+const Albums = () => {
+  return <p>Albums</p>;
+}
+
+const Playlists = () => {
+  return <p>Playlists</p>;
+}
+
+const Downloader = () => {
+  return <p>Downloader</p>;
+}
 
 class App extends Component {
   constructor(props) {
@@ -30,9 +51,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ResponsiveDrawer>
-          Contenido
-        </ResponsiveDrawer>
+        <Router>
+          <ResponsiveDrawer>
+            <Switch>
+              <Route path="/" exact component={Home}/>
+              <Route path="/search" exact component={Search}/>
+              <Route path="/albums" exact component={Albums}/>
+              <Route path="/playlists" exact component={Playlists}/>
+              <Route path="/downloader" exact component={Downloader}/>
+            </Switch>
+          </ResponsiveDrawer>
+        </Router>
       </div>
     );
   }

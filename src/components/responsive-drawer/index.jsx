@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -22,7 +23,9 @@ import AlbumIcon from '@material-ui/icons/Album';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 
-
+const NavLinkMui = React.forwardRef((props, ref) => (
+  <NavLink {...props} activeClassName="Mui-selected" ref={ref} />
+))
 function ResponsiveDrawer(props) {
   const { children } = props;
   const classes = useStyles();
@@ -33,6 +36,7 @@ function ResponsiveDrawer(props) {
   };
 
   const menuTexts = ['Home', 'Search', 'Albums', 'Playlists', 'Downloader'];
+  const menuLinks = ['/', '/search', '/albums', '/playlists', '/downloader'];
   const menuIcons = [
     <HomeIcon/>,
     <SearchIcon />,
@@ -47,7 +51,7 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {menuTexts.map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={text} component={NavLinkMui} to={menuLinks[index]} exact>
             <ListItemIcon>{menuIcons[index]}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
