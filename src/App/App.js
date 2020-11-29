@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import ResponsiveDrawer from '../components/responsive-drawer';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import store from '../store';
+import LoginForm from '../components/login';
 
 // Css
 import './App.css';
@@ -63,15 +64,16 @@ class App extends Component {
         <Provider store={store}>
           <ThemeProvider theme={this.darkTheme}>
             <Router>
-              <ResponsiveDrawer>
-                <Switch>
+              <Switch>
+                <Route path="/login" exact component={LoginForm}/>
+                <ResponsiveDrawer>
                   <Route path="/" exact component={Home}/>
                   <Route path="/search" exact component={Search}/>
                   <Route path="/albums" exact component={Albums}/>
                   <Route path="/playlists" exact component={Playlists}/>
                   <Route path="/downloader" exact component={Downloader}/>
-                </Switch>
-              </ResponsiveDrawer>
+                </ResponsiveDrawer>
+              </Switch>
             </Router>
           </ThemeProvider>
         </Provider>

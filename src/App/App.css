@@ -1,5 +1,9 @@
+#root {
+  background-color: #303030;
+}
+
 .App {
-  margin: 3em auto;
+  margin: 0 auto 0 auto;
   max-width: 50em;
 }
 
