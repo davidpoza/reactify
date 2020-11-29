@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-
-const drawerWidth = 240;
+import config from '../../config';
 
 export default makeStyles((theme) => ({
   root: {
@@ -8,16 +7,11 @@ export default makeStyles((theme) => ({
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
+      width: config.drawerWidth,
       flexShrink: 0,
     },
   },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-  },
+
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
@@ -32,7 +26,7 @@ export default makeStyles((theme) => ({
     padding: '0.5rem',
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: config.drawerWidth,
   },
   content: {
     flexGrow: 1,
