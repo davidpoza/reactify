@@ -13,8 +13,12 @@ export default makeStyles((theme) => ({
   title: {
     fontSize: '3rem',
     color: 'white',
+    paddingBottom: '1rem',
   },
   email: {
-    marginBottom: '1rem'
+    paddingBottom: '1rem',
   },
+  password: {
+    paddingBottom: '1rem',
+  }
 }));
