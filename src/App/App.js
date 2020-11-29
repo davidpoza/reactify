@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 import ResponsiveDrawer from '../components/responsive-drawer';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import store from '../store';
 
 // Css
 import './App.css';
@@ -55,23 +57,24 @@ class App extends Component {
       console.error("Error accediendo al servidor", err);
     }
   }
-
   render() {
     return (
       <div className="App">
-        <ThemeProvider theme={this.darkTheme}>
-          <Router>
-            <ResponsiveDrawer>
-              <Switch>
-                <Route path="/" exact component={Home}/>
-                <Route path="/search" exact component={Search}/>
-                <Route path="/albums" exact component={Albums}/>
-                <Route path="/playlists" exact component={Playlists}/>
-                <Route path="/downloader" exact component={Downloader}/>
-              </Switch>
-            </ResponsiveDrawer>
-          </Router>
-        </ThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={this.darkTheme}>
+            <Router>
+              <ResponsiveDrawer>
+                <Switch>
+                  <Route path="/" exact component={Home}/>
+                  <Route path="/search" exact component={Search}/>
+                  <Route path="/albums" exact component={Albums}/>
+                  <Route path="/playlists" exact component={Playlists}/>
+                  <Route path="/downloader" exact component={Downloader}/>
+                </Switch>
+              </ResponsiveDrawer>
+            </Router>
+          </ThemeProvider>
+        </Provider>
       </div>
     );
   }
