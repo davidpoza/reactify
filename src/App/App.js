@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import ResponsiveDrawer from '../components/responsive-drawer';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import ResponsiveDrawer from '../components/responsive-drawer';
 import store from '../store';
 import LoginForm from '../components/login';
+import PrivateRoute from '../hocs/private-route';
 
 // Css
 import './App.css';
+
 
 const Home = () => {
   return <p>Homepage</p>;
@@ -65,9 +67,9 @@ class App extends Component {
           <ThemeProvider theme={this.darkTheme}>
             <Router>
               <Switch>
-                <Route path="/login" exact component={LoginForm}/>
+                <Route path="/login" exact component={LoginForm} />
                 <ResponsiveDrawer>
-                  <Route path="/" exact component={Home}/>
+                  <PrivateRoute path="/" exact component={Home}/>
                   <Route path="/search" exact component={Search}/>
                   <Route path="/albums" exact component={Albums}/>
                   <Route path="/playlists" exact component={Playlists}/>

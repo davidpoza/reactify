@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import get from 'lodash.get';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -8,10 +9,16 @@ import useStyles from './styles';
 import { getAuth } from '../../actions/user';
 
 function Login(props) {
-  const { getAuth } = props;
+  const { getAuth, user, history } = props;
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    if (get(user, 'user')) {
+      history.push("/");
+    }
+  }, [user]);
 
   async function onFormSubmit(e) {
     e.preventDefault();
@@ -42,10 +49,15 @@ function Login(props) {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.current,
+  }
+}
 const mapDispatchToProps = dispatch => {
   return {
     getAuth: (email, password) => dispatch(getAuth(email, password))
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
