@@ -23,7 +23,6 @@ function MyAppBar({handleDrawerToggle, user}) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap className={classes.title}>
-          Home
         </Typography>
         <Avatar url={get(user, 'avatar.url')} />
       </Toolbar>

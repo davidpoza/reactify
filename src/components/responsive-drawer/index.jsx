@@ -38,11 +38,11 @@ function ResponsiveDrawer(props) {
   const menuTexts = ['Home', 'Search', 'Albums', 'Playlists', 'Downloader'];
   const menuLinks = ['/', '/search', '/albums', '/playlists', '/downloader'];
   const menuIcons = [
-    <HomeIcon/>,
-    <SearchIcon />,
-    <AlbumIcon />,
-    <FormatListNumberedIcon />,
-    <CloudDownloadIcon />,
+    <HomeIcon className={classes.icon} />,
+    <SearchIcon className={classes.icon} />,
+    <AlbumIcon className={classes.icon} />,
+    <FormatListNumberedIcon className={classes.icon} />,
+    <CloudDownloadIcon className={classes.icon} />,
   ];
 
   const drawer = (

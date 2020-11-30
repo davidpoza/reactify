@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: {
     textAlign: 'center',
-    border: '1px solid grey',
     marginBottom: '20vh',
     padding: '1rem',
     backgroundColor: '#424242',

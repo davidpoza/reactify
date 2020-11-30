@@ -26,4 +26,7 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  icon: {
+    color: '#fff',
+  }
 }));
