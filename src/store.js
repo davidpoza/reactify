@@ -1,11 +1,25 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import promise from 'redux-promise-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension'
+import StateLoader from './utils/state-loader';
 
 // Reducers
 import user from './reducers/user';
 
-export default createStore(
-  combineReducers({ user }),
-  composeWithDevTools(applyMiddleware(promise))
+const stateLoader = new StateLoader();
+
+const enhancer = composeWithDevTools(
+  applyMiddleware(promise)
 );
+
+const store = createStore(
+  combineReducers({ user }),
+  stateLoader.loadState(),
+  enhancer
+);
+
+store.subscribe(() => {
+  stateLoader.saveState(store.getState());
+});
+
+export default store;
