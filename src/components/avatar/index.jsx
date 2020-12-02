@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import get from 'lodash.get';
 import PropTypes from 'prop-types';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -6,8 +8,8 @@ import Avatar from '@material-ui/core/Avatar';
 import useStyles from './styles';
 import config from '../../config';
 
-export default function MyAvatar(props) {
-
+function MyAvatar(props) {
+  const { user } = props;
   const classes = useStyles();
   const { url } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -33,6 +35,7 @@ export default function MyAvatar(props) {
           className={classes.avatar}
           src={`${config.API_HOST}${url}`}
         />
+        <span onClick={handleClick} className={classes.username}>{get(user, 'email')}</span>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -48,6 +51,20 @@ export default function MyAvatar(props) {
   }
   return (null);
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.current ? state.user.current.user : null,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyAvatar);
 
 MyAvatar.propTypes = {
   url: PropTypes.string,

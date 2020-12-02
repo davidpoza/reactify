@@ -10,4 +10,8 @@ export default makeStyles((theme) => ({
   menuEmail: {
     opacity: '1 !important',
   },
+  username: {
+    color: '#fff',
+    cursor: 'pointer',
+  }
 }));
