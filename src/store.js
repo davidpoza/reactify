@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import promise from 'redux-promise-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension'
+
 import StateLoader from './utils/state-loader';
 
 // Reducers

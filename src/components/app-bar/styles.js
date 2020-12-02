@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import config from '../../config';
+import config from '../../utils/config';
 
 export default makeStyles((theme) => ({
   appBar: {

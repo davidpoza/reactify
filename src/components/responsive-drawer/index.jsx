@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import get from 'lodash.get';
-import { connect } from 'react-redux';
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux';
 
+// material ui
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,16 +13,17 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import useStyles from './styles';
-import AppBar from '../app-bar';
 
-
-// icons
+// material ui icons
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import AlbumIcon from '@material-ui/icons/Album';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+
+// own
+import useStyles from './styles';
+import AppBar from '../app-bar';
 
 const NavLinkMui = React.forwardRef((props, ref) => (
   <NavLink {...props} activeClassName="Mui-selected" ref={ref} />

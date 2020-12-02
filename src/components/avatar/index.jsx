@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
+
+// material ui
+import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Avatar from '@material-ui/core/Avatar';
+
+// own
+import config from '../../utils/config';
 import useStyles from './styles';
-import config from '../../config';
 
 function MyAvatar(props) {
   const { user } = props;
