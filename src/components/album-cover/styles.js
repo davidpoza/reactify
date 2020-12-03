@@ -1,9 +1,19 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { Block } from '@material-ui/icons';
 
 export default makeStyles((theme) => ({
   root: {
     maxWidth: 180,
-    margin: 12,
+  },
+  actionArea: {
+    padding: 14,
+  },
+  content: {
+    padding: '16px 0 16px 0'
+  },
+  media: {
+    height: 160,
+    borderRadius: '3px',
   },
   title: {
     fontSize: '1.1rem',
@@ -11,6 +21,12 @@ export default makeStyles((theme) => ({
   },
   author: {
     fontSize: '1rem',
-  }
+  },
+  icon: {
+    position: 'absolute',
+    top: 120,
+    right: 20,
+    fontSize: '3rem',
+  },
 
 }));
