@@ -1,11 +1,6 @@
 const actions = [
-  // Todos
-  "ADD_TODO",
-  "COMPLETE_TODO",
-  "CLEAR_TODOS",
-
-  // Usuarios
-  "UPDATE_NAME"
+  // User
+  "LOGOUT",
 ];
 
 const actionTypes = {};

@@ -9,11 +9,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 // own
+import { doLogout } from '../../actions/user';
 import config from '../../utils/config';
 import useStyles from './styles';
 
 function MyAvatar(props) {
-  const { user } = props;
+  const { user, logout } = props;
   const classes = useStyles();
   const { url } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,7 +29,7 @@ function MyAvatar(props) {
 
   const handleLogout = () => {
     handleClose();
-    // llamada a action logout
+    logout();
   };
 
   if (url) {
@@ -64,7 +65,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-
+    logout: () => dispatch(doLogout()),
   }
 }
 

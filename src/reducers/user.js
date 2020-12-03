@@ -1,4 +1,5 @@
 import { getAuth } from '../actions/user';
+import types from '../actions/types';
 
 const initialState = {
   isLoading: false,
@@ -28,6 +29,8 @@ const reducer = (state = initialState, action) => {
         isLoading: false,
         error: true
       };
+    case types.LOGOUT:
+      return {}
     default:
       return state;
   }
