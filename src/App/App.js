@@ -11,14 +11,12 @@ import PrivateRoute from '../hocs/private-route';
 import ResponsiveDrawer from '../components/responsive-drawer';
 import store from '../store';
 import theme from '../utils/theme';
+import Home from '../components/home';
+
 
 // Css
 import './App.css';
 
-
-const Home = () => {
-  return <p>Homepage</p>;
-}
 
 const Search = () => {
   return <p>Search</p>;
