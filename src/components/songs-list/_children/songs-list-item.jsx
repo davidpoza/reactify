@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropType from 'prop-types';
 
 // material-ui
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import PlayArrow from '@material-ui/icons/PlayArrow';
 
 // own
 import useStyles from '../styles.js';
@@ -19,10 +21,26 @@ import { secondsToString } from '../../../utils/utilities';
 
 function SongListItem({ index, style, data }) {
   const classes = useStyles();
+  const [displayIcon, setDisplayIcon] = useState(false);
   const item = data[index];
+
+  function onMouseEnterHandler() {
+    setDisplayIcon(true);
+  }
+
+  function onMouseLeaveHandler() {
+    setDisplayIcon(false);
+  }
+
   return (
-    <ListItem button style={style} key={index}>
-      <ListItemText primary={item.number} className={classes.number} />
+    <ListItem button style={style} key={index} className={classes.row} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
+      {
+        displayIcon
+        ? <ListItemIcon className={classes.icon}>
+            <PlayArrow />
+          </ListItemIcon>
+        : <ListItemText primary={item.number} className={classes.number} />
+      }
       {
         item.album && item.cover &&
         <ListItemAvatar>
