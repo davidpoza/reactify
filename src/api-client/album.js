@@ -68,3 +68,26 @@ export async function searchSong({
     return -1
   }
 };
+
+/**
+ * Fetches albums with text included in name
+ * @param {Object} params
+ * @param {string} params.token - jwt token
+ * @param {number} params.text - text included in album name
+ */
+export async function searchAlbum({
+  token, text
+}) {
+  try {
+    const res = await fetch(`${config.API_HOST}/albums?name_contains=${text}`, {
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer "+token,
+
+      },
+    });
+    return await res.json();
+  } catch {
+    return -1
+  }
+};
