@@ -11,7 +11,7 @@ import PlayArrow from '@material-ui/icons/PlayArrow';
 
 // own
 import useStyles from '../styles.js';
-import { secondsToString } from '../../../utils/utilities';
+import { secondsToShortString } from '../../../utils/utilities';
 
 
 /**
@@ -61,7 +61,7 @@ function SongListItem({ index, style, data }) {
         item.dateAdded &&
         <ListItemText primary={item.dateAdded} />
       }
-      <ListItemText primary={secondsToString(item.duration)} className={classes.duration} />
+      <ListItemText primary={secondsToShortString(item.duration)} className={classes.duration} />
     </ListItem>
   );
 }
