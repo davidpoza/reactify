@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import StateLoader from './utils/state-loader';
 
 // Reducers
+import ui from './reducers/ui';
 import user from './reducers/user';
 
 const stateLoader = new StateLoader();
@@ -14,7 +15,7 @@ const enhancer = composeWithDevTools(
 );
 
 const store = createStore(
-  combineReducers({ user }),
+  combineReducers({ ui, user }),
   stateLoader.loadState(),
   enhancer
 );

@@ -28,8 +28,9 @@ import AppBar from '../app-bar';
 const NavLinkMui = React.forwardRef((props, ref) => (
   <NavLink {...props} activeClassName="Mui-selected" ref={ref} />
 ))
-function ResponsiveDrawer(props) {
-  const { children, user } = props;
+function ResponsiveDrawer({
+  children, user, ui,
+}) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -97,7 +98,7 @@ function ResponsiveDrawer(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar} style={ui.transparentToolbar ? {display: 'none'} : { display: 'block' }} />
         {children}
       </main>
     </div>
@@ -112,6 +113,7 @@ ResponsiveDrawer.propTypes = {
 const mapStateToProps = (state) => {
   return {
     user: get(state, 'user.current.user'),
+    ui: get(state, 'ui'),
   }
 }
 

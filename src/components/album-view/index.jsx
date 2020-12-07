@@ -7,10 +7,13 @@ import { getAlbum, getAlbumSongs } from '../../api-client/album';
 import SongsList from '../songs-list';
 import useStyles from './styles.js'
 import Config from '../../utils/config';
+import { makeToolbarTransparent } from '../../actions/ui'
 
 function AlbumView({
-   user
+   user, makeToolbarTransparent
 }) {
+  const color1 = 'blue';
+  const color2 = 'pink';
   const classes = useStyles();
   const { id } = useParams();
   const [ album, setAlbum ] = useState();
@@ -28,6 +31,7 @@ function AlbumView({
   }
 
   useEffect(() => {
+    makeToolbarTransparent();
     async function loadContent() {
       const albumData = await getAlbum({ token: user.jwt, albumId: id });
       setAlbum(albumData);
@@ -41,7 +45,7 @@ function AlbumView({
   }
 
   return (<div>
-    <div className={classes.header}>
+    <div className={classes.header} style={{ background: `linear-gradient(${color1}, ${color2})`}}>
       <img src={`${Config.API_HOST}${album.cover.url}`} className={classes.cover}
         alt={`Carátula del disco ${album.name}`} />
       <div className={classes.dataBlock}>
@@ -58,4 +62,11 @@ const mapStateToProps = (state) => {
     user: state.user.current,
   }
 }
-export default connect(mapStateToProps)(AlbumView);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    makeToolbarTransparent: () => dispatch(makeToolbarTransparent()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumView);

@@ -3,7 +3,6 @@ import config from '../../utils/config';
 
 export default makeStyles((theme) => ({
   appBar: {
-    backgroundColor: '#121212',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${config.drawerWidth}px)`,
       marginLeft: config.drawerWidth,

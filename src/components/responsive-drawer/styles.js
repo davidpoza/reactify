@@ -23,7 +23,7 @@ export default makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: '100vh',
-    padding: theme.spacing(3),
+    padding: 0,
   },
   icon: {
     color: '#fff',

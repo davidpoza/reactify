@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
   header: {
     display: 'flex',
     justifyContent: 'flex-start',
+    padding: '3em',
     marginBottom: '30px',
   },
   dataBlock: {

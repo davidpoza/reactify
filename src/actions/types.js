@@ -1,6 +1,10 @@
 const actions = [
   // User
-  "LOGOUT",
+  'LOGOUT',
+
+  // UI
+  'TRANSPARENT_TOOLBAR',
+  'OPAQUE_TOOLBAR',
 ];
 
 const actionTypes = {};
