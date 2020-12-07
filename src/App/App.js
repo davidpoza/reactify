@@ -12,7 +12,7 @@ import ResponsiveDrawer from '../components/responsive-drawer';
 import store from '../store';
 import theme from '../utils/theme';
 import Home from '../components/home';
-
+import AlbumView from '../components/album-view';
 
 // Css
 import './App.css';
@@ -47,6 +47,7 @@ class App extends Component {
                   <PrivateRoute path="/" exact component={Home}/>
                   <Route path="/search" exact component={Search}/>
                   <Route path="/albums" exact component={Albums}/>
+                  <Route path="/album/:id" exact component={AlbumView}/>
                   <Route path="/playlists" exact component={Playlists}/>
                   <Route path="/downloader" exact component={Downloader}/>
                 </ResponsiveDrawer>

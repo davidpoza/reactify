@@ -22,6 +22,7 @@ export default makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
+    height: '100vh',
     padding: theme.spacing(3),
   },
   icon: {

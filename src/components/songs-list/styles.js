@@ -16,6 +16,10 @@ export default makeStyles((theme) => ({
   },
   title: {
     minWidth: '240px',
+    flex: '4 4 400px',
+  },
+  duration: {
+    flex: '1 1 100px',
   },
   row: {
     paddingLeft: 0,

@@ -52,7 +52,7 @@ function SongListItem({ index, style, data }) {
         </ListItemAvatar>
       }
 
-      <ListItemText primary={item.title} secondary={item.author} className={classes.title} />
+      <ListItemText primary={item.name} secondary={item.author} className={classes.title} />
       {
         item.album &&
         <ListItemText primary={item.album} />
@@ -61,7 +61,7 @@ function SongListItem({ index, style, data }) {
         item.dateAdded &&
         <ListItemText primary={item.dateAdded} />
       }
-      <ListItemText primary={secondsToString(item.duration)} />
+      <ListItemText primary={secondsToString(item.duration)} className={classes.duration} />
     </ListItem>
   );
 }
@@ -72,7 +72,7 @@ SongListItem.PropType = {
   data: PropType.shape({
     number: PropType.number,
     cover: PropType.string,
-    title: PropType.string.isRequired,
+    name: PropType.string.isRequired,
     author: PropType.string.isRequired,
     album: PropType.string,
     dateAdded: PropType.string,
