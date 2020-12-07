@@ -13,13 +13,13 @@ export function pad(num, size) {
  * @returns {string} Returns string looking like 05:33
  */
 export function secondsToShortString(seconds) {
-  const hour = pad(Math.trunc(seconds / 3600), 2);
-  const min = pad(Math.trunc((seconds % 3600) / 60), 2);
-  const sec = pad(seconds % 60, 2);
+  const hour = Math.trunc(seconds / 3600);
+  const min = Math.trunc((seconds % 3600) / 60);
+  const sec = seconds % 60;
   if (hour === 0) {
-    return (`${min}:${sec}`);
+    return (`${pad(min, 2)}:${pad(sec, 2)}`);
   }
-  return (`${hour}:${min}:${sec}`);
+  return (`${pad(hour, 2)}:${pad(min, 2)}:${pad(sec, 2)}`);
 }
 
 /**
