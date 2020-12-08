@@ -13,6 +13,7 @@ import store from '../store';
 import theme from '../utils/theme';
 import Home from '../components/home';
 import AlbumView from '../components/album-view';
+import Player from '../components/player';
 
 // Css
 import './App.css';
@@ -50,6 +51,7 @@ class App extends Component {
                   <Route path="/album/:id" exact component={AlbumView}/>
                   <Route path="/playlists" exact component={Playlists}/>
                   <Route path="/downloader" exact component={Downloader}/>
+                  <Player />
                 </ResponsiveDrawer>
               </Switch>
             </Router>
