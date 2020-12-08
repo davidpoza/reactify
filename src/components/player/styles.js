@@ -50,6 +50,21 @@ export default makeStyles((theme) => ({
   },
   nextIcon: {
     color: '#b3b3b3',
+  },
+  info: {
+    width: '25%',
+    padding: '10px',
+  },
+  extra: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: '25%',
+    padding: '10px',
+  },
+  extraIcon: {
+    margin: '0 10px 0 10px',
+    verticalAlign: 'middle',
   }
 
 }));

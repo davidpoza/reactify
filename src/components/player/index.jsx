@@ -8,13 +8,13 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import Slider from '@material-ui/core/Slider';
-import { withStyles } from '@material-ui/core/styles';
 
 // own
 import useStyles from './styles';
 import { secondsToShortString } from '../../utils/utilities';
 import { addToQueue, removeFromQueue } from '../../actions/player';
+import TimeBar from './_children/time-bar';
+import VolumeControl from './_children/volume-control';
 
 function Player({
   playerState
@@ -22,6 +22,7 @@ function Player({
   const [duration, setDuration] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [second, setSecond] = useState(0);
+  const [volume, setVolume] = useState(0.5);
   const classes = useStyles();
   const player = useRef();
   let interval = null;
@@ -51,32 +52,15 @@ function Player({
     player.current.currentTime = second;
   }
 
-  const CustomSlider = withStyles({
-    root: {
-      color: '#b3b3b3',
-      height: '4px',
-      padding: 0,
-      width: '80%',
-      textAlign: 'center',
-      margin: 'auto',
-    },
-    thumb: {
-      display: 'none',
-      },
-    active: {},
-    track: {
-      height: '4px',
-      borderRadius: '4px',
-    },
-    rail: {
-      color: '#535353',
-      opacity: 1,
-      height: '4px',
-      borderRadius: '4px',
-    },
-  })(Slider);
+  /**
+   * @param {number} value - Values between 1.0 and 0.0
+   */
+  function setVolumeSlider(value) {
+    setVolume(value / 100);
+    player.current.volume = value / 100;
+  }
 
-  return (<div className={classes.root}>
+    return (<div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.info}>
           info
@@ -103,11 +87,9 @@ function Player({
               {secondsToShortString(second)}
             </div>
             {
-              <CustomSlider
-                onChange={(e, value) => { setTime(value) }}
-                aria-label="custom thumb label"
+              <TimeBar
+                handler={setTime}
                 value={second * 100 / duration}
-                component='div'
               />
             }
             <div className={classes.duration}>
@@ -116,7 +98,12 @@ function Player({
           </div>
         </div>
         <div className={classes.extra}>
-            extra
+          {
+            <VolumeControl
+              handler={setVolumeSlider}
+              value={volume}
+            />
+          }
         </div>
       </div>
 
