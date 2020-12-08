@@ -1,17 +1,5 @@
 import types from './types';
 
-export const play = () => ({
-  type: types.PLAY,
-});
-
-export const pause = () => ({
-  type: types.PAUSE,
-});
-
-export const stop = () => ({
-  type: types.STOP,
-});
-
 export const addToQueue = ({
   songId, songName, songSeconds, songAlbum, songArtist
 }) => ({

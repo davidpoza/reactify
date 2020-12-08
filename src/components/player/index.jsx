@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { connect } from 'react-redux';
 import get from 'lodash.get';
 
 // material ui
@@ -13,23 +14,28 @@ import { withStyles } from '@material-ui/core/styles';
 // own
 import useStyles from './styles';
 import { secondsToShortString } from '../../utils/utilities';
+import { addToQueue, removeFromQueue } from '../../actions/player';
 
-
-function Player() {
-  const [playing, setPlaying] = useState(false);
+function Player({
+  playerState
+}) {
   const [duration, setDuration] = useState(0);
+  const [playing, setPlaying] = useState(false);
   const [second, setSecond] = useState(0);
-
   const classes = useStyles();
   const player = useRef();
   let interval = null;
+
+  useEffect(() => {
+
+  });
 
   function play() {
     player.current.play();
     setPlaying(true);
     setDuration(get(player, 'current.duration'));
     interval = setInterval(() => {
-      setSecond(Math.trunc(get(player, 'current.currentTime')));
+      setSecond(Math.trunc(get(player, 'current.currentTime')))
     }, 1000);
   }
 
@@ -121,4 +127,16 @@ function Player() {
   );
 }
 
-export default Player;
+const mapStateToProps = (state) => {
+  return ({
+    playerState: state.player,
+  });
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return ({
+
+  })
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player);

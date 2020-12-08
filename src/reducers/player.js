@@ -1,28 +1,11 @@
 import types from '../actions/types';
 
 const initialState = {
-  playing: false,
-  currentSec: 0,
   queue: [],
 }
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case types.PLAY:
-      return {
-        ...state,
-        playing: true,
-      }
-    case types.PAUSE:
-      return {
-        ...state,
-        playing: false,
-      }
-    case types.STOP:
-      return {
-        ...state,
-        queue: [],
-      }
     case types.ADD_TO_QUEUE:
       return {
         ...state,

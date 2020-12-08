@@ -43,12 +43,13 @@ export default makeStyles((theme) => ({
   playIcon: {
     fontSize: '40px',
     padding: 0,
+    color: '#b3b3b3',
   },
   previousIcon: {
-
+    color: '#b3b3b3',
   },
   nextIcon: {
-
+    color: '#b3b3b3',
   }
 
 }));
