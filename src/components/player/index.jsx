@@ -8,6 +8,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import QueueIcon from '@material-ui/icons/QueueMusic';
 
 // own
 import useStyles from './styles';
@@ -71,10 +72,10 @@ function Player({
               <SkipPreviousIcon className={classes.previousIcon} />
             </IconButton>
             { playing
-              ? <IconButton aria-label="pause" onClick={pause} className={classes.playBtn}>
+              ? <IconButton title="Pausar reproducción" aria-label="pause" onClick={pause} className={classes.playBtn}>
                   <PauseCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
-              : <IconButton aria-label="play" onClick={play} className={classes.playBtn}>
+              : <IconButton title="Continuar reproducción" aria-label="play" onClick={play} className={classes.playBtn}>
                   <PlayCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
             }
@@ -99,10 +100,15 @@ function Player({
         </div>
         <div className={classes.extra}>
           {
-            <VolumeControl
-              handler={setVolumeSlider}
-              value={volume}
-            />
+            <>
+              <IconButton title="Cola de reproducción" aria-label="Cola de reproducción" className={classes.extraButton}>
+                <QueueIcon fontSize="small" className={classes.extraIcon} />
+              </IconButton>
+              <VolumeControl
+                handler={setVolumeSlider}
+                value={volume}
+              />
+            </>
           }
         </div>
       </div>

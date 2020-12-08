@@ -63,8 +63,15 @@ export default makeStyles((theme) => ({
     padding: '10px',
   },
   extraIcon: {
-    margin: '0 10px 0 10px',
+    margin: '0 2px 0 2px',
     verticalAlign: 'middle',
+    color: '#b3b3b3',
+    '&:hover': {
+      color: 'white',
+    }
+  },
+  extraButton: {
+    padding: 0
   }
 
 }));
