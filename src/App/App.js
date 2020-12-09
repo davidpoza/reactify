@@ -14,6 +14,7 @@ import theme from '../utils/theme';
 import Home from '../components/home';
 import AlbumView from '../components/album-view';
 import Player from '../components/player';
+import QueueView from '../components/queue-view';
 
 // Css
 import './App.css';
@@ -51,6 +52,7 @@ class App extends Component {
                   <Route path="/album/:id" exact component={AlbumView}/>
                   <Route path="/playlists" exact component={Playlists}/>
                   <Route path="/downloader" exact component={Downloader}/>
+                  <Route path="/queue" exact component={QueueView}/>
                   <Player />
                 </ResponsiveDrawer>
               </Switch>

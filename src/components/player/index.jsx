@@ -72,10 +72,10 @@ function Player({
               <SkipPreviousIcon className={classes.previousIcon} />
             </IconButton>
             { playing
-              ? <IconButton title="Pausar reproducción" aria-label="pause" onClick={pause} className={classes.playBtn}>
+              ? <IconButton title="Pause" aria-label="pause" onClick={pause} className={classes.playBtn}>
                   <PauseCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
-              : <IconButton title="Continuar reproducción" aria-label="play" onClick={play} className={classes.playBtn}>
+              : <IconButton title="Resume" aria-label="play" onClick={play} className={classes.playBtn}>
                   <PlayCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
             }
@@ -101,7 +101,12 @@ function Player({
         <div className={classes.extra}>
           {
             <>
-              <IconButton title="Cola de reproducción" aria-label="Cola de reproducción" className={classes.extraButton}>
+              <IconButton
+                href="/queue"
+                title="See queue"
+                aria-label="queue"
+                className={classes.extraButton}
+              >
                 <QueueIcon fontSize="small" className={classes.extraIcon} />
               </IconButton>
               <VolumeControl

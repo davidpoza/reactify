@@ -7,11 +7,12 @@ import { getAlbum, getAlbumSongs } from '../../api-client/album';
 import SongsList from '../songs-list';
 import useStyles from './styles.js'
 import Config from '../../utils/config';
-import { makeToolbarTransparent } from '../../actions/ui'
+import { makeToolbarTransparent } from '../../actions/ui';
+import { replaceQueue } from '../../actions/player';
 import { secondsToLongString } from  '../../utils/utilities';
 
 function AlbumView({
-   user, makeToolbarTransparent
+   user, makeToolbarTransparent, replaceQueue
 }) {
   const color1 = 'blue';
   const color2 = 'pink';
@@ -23,10 +24,13 @@ function AlbumView({
   function transformSongs(arrSongs, albumData) {
     return arrSongs.map((e, index) => {
       return ({
+        id: e.id,
         number: index + 1,
         name: e.name,
-        author: albumData.name,
+        album: albumData.name,
+        author: albumData.artists[0].name,
         duration: e.duration,
+        cover: albumData.cover.url,
       });
     });
   }
@@ -78,6 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     makeToolbarTransparent: () => dispatch(makeToolbarTransparent()),
+    replaceQueue: (newQueue) => dispatch(replaceQueue(newQueue))
   }
 }
 

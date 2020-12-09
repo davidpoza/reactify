@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import PropType from 'prop-types';
 
 // material-ui
@@ -8,18 +9,19 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import PlayArrow from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 
 // own
 import useStyles from '../styles.js';
+import Config from '../../../utils/config';
 import { secondsToShortString } from '../../../utils/utilities';
-
+import { addToQueue } from '../../../actions/player';
 
 /**
  * This component will be used on Albums and playlists.
- * For playlist case it will use all non-required fields.
  */
 
-function SongListItem({ index, style, data }) {
+function SongListItem({ index, style, data, addToQueue, playerState, variant = 'album' }) {
   const classes = useStyles();
   const [displayIcon, setDisplayIcon] = useState(false);
   const item = data[index];
@@ -32,8 +34,27 @@ function SongListItem({ index, style, data }) {
     setDisplayIcon(false);
   }
 
+  function handleOnClick() {
+    addToQueue({
+      songId: item.id,
+      songName: item.name,
+      songSeconds: item.duration,
+      songAlbum: item.album,
+      songArtist: item.author,
+      albumCover: item.cover,
+    });
+  }
+
   return (
-    <ListItem button style={style} key={index} className={classes.row} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
+    <ListItem
+      button style={style}
+      key={index}
+      className={classes.row}
+      onClick={handleOnClick}
+      onDoubleClick={handleOnClick}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
+    >
       {
         displayIcon
         ? <ListItemIcon className={classes.icon}>
@@ -42,19 +63,19 @@ function SongListItem({ index, style, data }) {
         : <ListItemText primary={item.number} className={classes.number} />
       }
       {
-        item.album && item.cover &&
+        variant === 'playlist' && item.album && item.cover &&
         <ListItemAvatar>
           <Avatar
             variant="square"
             alt={`Carátula del album ${item.album}`}
-            src={item.cover}
+            src={`${Config.API_HOST}${item.cover}`}
           />
         </ListItemAvatar>
       }
 
       <ListItemText primary={item.name} secondary={item.author} className={classes.title} />
       {
-        item.album &&
+        variant === 'playlist' && item.album &&
         <ListItemText primary={item.album} />
       }
       {
@@ -67,6 +88,7 @@ function SongListItem({ index, style, data }) {
 }
 
 SongListItem.PropType = {
+  variant: PropType.string,
   index: PropType.number,
   style: PropType.object,
   data: PropType.shape({
@@ -80,4 +102,16 @@ SongListItem.PropType = {
   })
 };
 
-export default SongListItem;
+const mapStateToProps = (state) => {
+  return {
+    playerState: state.player,
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToQueue: (obj) => dispatch(addToQueue(obj)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SongListItem);

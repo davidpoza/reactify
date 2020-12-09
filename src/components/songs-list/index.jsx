@@ -6,18 +6,24 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 // own
 import ListItem from './_children/songs-list-item';
-
 import useStyles from './styles.js'
 
-function SongsList({songs}) {
+
+function SongsList({ songs, variant }) {
   const classes = useStyles();
+
+  function ListItemWithVariant(props) {
+    return <ListItem {...props} variant = {variant} />
+  }
+
   return (
     <AutoSizer>
       {
         ({ height, width}) => (
-          <FixedSizeList width={width} height={400} itemSize={60} itemCount={songs.length} itemData={songs}>
+          <FixedSizeList
+            width={width} height={400} itemSize={60} itemCount={songs.length} itemData={songs}>
             {
-              ListItem
+              ListItemWithVariant
             }
           </FixedSizeList>
         )
@@ -27,6 +33,7 @@ function SongsList({songs}) {
 }
 
 SongsList.propType = {
+  variant: PropType.string,
   songs: PropType.arrayOf(
     PropType.shape({
       number: PropType.number,
