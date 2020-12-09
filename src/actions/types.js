@@ -8,7 +8,9 @@ const actions = [
 
   // Player
   'ADD_TO_QUEUE',
+  'CONSUME_FROM_QUEUE',
   'REMOVE_FROM_QUEUE',
+  'CLEAR_QUEUE',
 ];
 
 const actionTypes = {};

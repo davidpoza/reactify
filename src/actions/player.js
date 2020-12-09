@@ -1,14 +1,15 @@
 import types from './types';
 
 export const addToQueue = ({
-  songId, songName, songSeconds, songAlbum, songArtist
+  songId, songName, songSeconds, songAlbum, songArtist, albumCover
 }) => ({
   type: types.ADD_TO_QUEUE,
   songId,
   songName,
   songSeconds,
   songAlbum,
-  songArtist
+  songArtist,
+  albumCover
 });
 
 export const removeFromQueue = (songId) => ({
@@ -16,4 +17,11 @@ export const removeFromQueue = (songId) => ({
   songId
 });
 
+export const consumeFromQueue = () => ({
+  type: types.CONSUME_FROM_QUEUE,
+})
+
+export const clearQueue = () => ({
+  type: types.CLEAR_QUEUE,
+})
 
