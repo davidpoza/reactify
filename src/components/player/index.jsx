@@ -112,7 +112,6 @@ function Player({
             <>
               <Link to="/queue">
                 <IconButton
-                  href="/queue"
                   title="See queue"
                   aria-label="queue"
                   className={classes.extraButton}
