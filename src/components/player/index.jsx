@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
+import {Link} from 'react-router-dom';
 
 // material ui
 import IconButton from '@material-ui/core/IconButton';
@@ -109,14 +110,16 @@ function Player({
         <div className={classes.extra}>
           {
             <>
-              <IconButton
-                href="/queue"
-                title="See queue"
-                aria-label="queue"
-                className={classes.extraButton}
-              >
-                <QueueIcon fontSize="small" className={classes.extraIcon} />
-              </IconButton>
+              <Link to="/queue">
+                <IconButton
+                  href="/queue"
+                  title="See queue"
+                  aria-label="queue"
+                  className={classes.extraButton}
+                >
+                  <QueueIcon fontSize="small" className={classes.extraIcon} />
+                </IconButton>
+              </Link>
               <VolumeControl
                 handler={setVolumeSlider}
                 value={volume}
