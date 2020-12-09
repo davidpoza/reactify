@@ -8,6 +8,7 @@ const actions = [
 
   // Player
   'ADD_TO_QUEUE',
+  'REPLACE_QUEUE',
   'CONSUME_FROM_QUEUE',
   'REMOVE_FROM_QUEUE',
   'CLEAR_QUEUE',

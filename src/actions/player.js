@@ -25,3 +25,8 @@ export const clearQueue = () => ({
   type: types.CLEAR_QUEUE,
 })
 
+export const replaceQueue = (newQueue) => ({
+  type: types.REPLACE_QUEUE,
+  newQueue,
+})
+

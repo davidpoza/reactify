@@ -6,7 +6,7 @@ const initialState = {
 // Remember: Queue works as FIFO
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case types.ADD_TO_QUEUE:
+    case types.ADD_TO_QUEUE: // in to first
       return {
         ...state,
         queue: [...state.queue, {
@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
           cover: action.albumCover,
         }],
       }
-    case types.CONSUME_FROM_QUEUE:
+    case types.CONSUME_FROM_QUEUE: // first out
       return {
         ...state,
         queue: state.queue.slice(1)
@@ -29,6 +29,11 @@ const reducer = (state = initialState, action) => {
         queue: state.queue.filter((song) => {
           return (song.id !== action.songId);
         }),
+      }
+    case types.REPLACE_QUEUE:
+      return {
+        ...state,
+        queue: [...action.newQueue],
       }
     case types.CLEAR_QUEUE:
       return {
