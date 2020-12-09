@@ -33,8 +33,8 @@ function AlbumView({
         number: index + 1,
         name: e.name,
         album: albumData.name,
-        author: albumData.artists[0].name,
-        duration: e.duration,
+        artist: albumData.artists[0].name,
+        seconds: e.duration,
         cover: albumData.cover.url,
         audio: e.audio.url,
       });
@@ -43,7 +43,7 @@ function AlbumView({
 
   function calculateTotalTime(arrSongs = []) {
     const totalSeconds = arrSongs
-      .map((e) => (e.duration))
+      .map((e) => (e.seconds))
       .reduce((acc, curr) => (acc + curr), 0);
     return secondsToLongString(totalSeconds);
   }

@@ -38,9 +38,9 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
     addToQueue({
       songId: item.id,
       songName: item.name,
-      songSeconds: item.duration,
+      songSeconds: item.seconds,
       songAlbum: item.album,
-      songArtist: item.author,
+      songArtist: item.artist,
       albumCover: item.cover,
       songAudio: item.audio,
     });
@@ -74,7 +74,7 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
         </ListItemAvatar>
       }
 
-      <ListItemText primary={item.name} secondary={item.author} className={classes.title} />
+      <ListItemText primary={item.name} secondary={item.artist} className={classes.title} />
       {
         (variant === 'playlist' || variant === 'queue') && item.album &&
         <ListItemText primary={item.album} />
@@ -83,7 +83,7 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
         variant === 'playlist' && item.dateAdded &&
         <ListItemText primary={item.dateAdded} />
       }
-      <ListItemText primary={secondsToShortString(item.duration)} className={classes.duration} />
+      <ListItemText primary={secondsToShortString(item.seconds)} className={classes.duration} />
     </ListItem>
   );
 }
@@ -93,13 +93,15 @@ SongListItem.PropType = {
   index: PropType.number,
   style: PropType.object,
   data: PropType.shape({
+    id: PropType.string,
     number: PropType.number,
     cover: PropType.string,
     name: PropType.string.isRequired,
-    author: PropType.string.isRequired,
+    artist: PropType.string.isRequired,
     album: PropType.string,
     dateAdded: PropType.string,
-    duration: PropType.number.isRequired,
+    seconds: PropType.number.isRequired,
+    audio: PropType.string,
   })
 };
 

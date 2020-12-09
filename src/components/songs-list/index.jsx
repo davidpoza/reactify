@@ -43,13 +43,15 @@ SongsList.propType = {
   variant: PropType.string,
   songs: PropType.arrayOf(
     PropType.shape({
+      id: PropType.string,
       number: PropType.number,
       cover: PropType.string,
       name: PropType.string.isRequired,
-      author: PropType.string.isRequired,
+      artist: PropType.string.isRequired,
       album: PropType.string,
       dateAdded: PropType.string,
-      duration: PropType.number.isRequired,
+      seconds: PropType.number.isRequired,
+      audio: PropType.string,
     })
   ),
 };
