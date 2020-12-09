@@ -29,6 +29,13 @@ export default makeStyles((theme) => ({
   cover: {
     width: 232,
     boxShadow: '0 4px 60px rgba(0,0,0,.5)',
+  },
+  playIcon: {
+    fontSize: '4rem',
+    height: '74px',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    }
   }
 })
 );

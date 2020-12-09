@@ -4,9 +4,6 @@ import PropType from 'prop-types';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
-
-
-
 // own
 import MyListItem from './_children/songs-list-item';
 import SongListHeader from './_children/header';

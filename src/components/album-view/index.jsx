@@ -2,6 +2,10 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+// material ui
+import { IconButton } from '@material-ui/core';
+import PlayIcon from '@material-ui/icons/PlayCircleFilled';
+
 // own
 import { getAlbum, getAlbumSongs } from '../../api-client/album';
 import SongsList from '../songs-list';
@@ -10,6 +14,7 @@ import Config from '../../utils/config';
 import { makeToolbarTransparent } from '../../actions/ui';
 import { replaceQueue } from '../../actions/player';
 import { secondsToLongString } from  '../../utils/utilities';
+
 
 function AlbumView({
    user, makeToolbarTransparent, replaceQueue
@@ -43,6 +48,10 @@ function AlbumView({
     return secondsToLongString(totalSeconds);
   }
 
+  function handleOnClickPlay() {
+    replaceQueue(songs);
+  }
+
   const totalTime = useMemo(() => {
     return calculateTotalTime(songs);
   }, [songs])
@@ -71,6 +80,9 @@ function AlbumView({
         <h2 className={classes.data}>{album.artists[0].name} - {album.year} - {songs.length} canciones - {totalTime}</h2>
       </div>
     </div>
+    <IconButton title="Play album" onClick={handleOnClickPlay}>
+      <PlayIcon className={classes.playIcon} />
+    </IconButton>
     <SongsList songs={songs} heightOffset={600} />
   </div>);
 }
