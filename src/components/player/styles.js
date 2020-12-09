@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
     width: '5ch',
     textAlign: 'center',
   },
-  duration: {
+  length: {
     width: '5ch',
     textAlign: 'center',
   },

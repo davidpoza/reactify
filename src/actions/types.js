@@ -13,7 +13,8 @@ const actions = [
   'REMOVE_FROM_QUEUE',
   'CLEAR_QUEUE',
   'PLAY',
-  'PAUSE'
+  'PAUSE',
+  'SET_JUMP_NEXT'
 ];
 
 const actionTypes = {};

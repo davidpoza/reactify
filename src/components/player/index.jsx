@@ -15,14 +15,16 @@ import QueueIcon from '@material-ui/icons/QueueMusic';
 import Config from '../../utils/config';
 import useStyles from './styles';
 import { secondsToShortString } from '../../utils/utilities';
-import { play as playAction, pause as pauseAction } from '../../actions/player';
+import {
+  play as playAction, pause as pauseAction, setJumpNext, consumeFromQueue
+} from '../../actions/player';
 import TimeBar from './_children/time-bar';
 import VolumeControl from './_children/volume-control';
 
 function Player({
-  playerState, playRedux, pauseRedux,
+  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue
 }) {
-  const [duration, setDuration] = useState(0);
+  const [length, setLength] = useState(0);
   const [second, setSecond] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [audio, setAudio] = useState();
@@ -30,6 +32,11 @@ function Player({
   const classes = useStyles();
   const player = useRef();
 
+  useEffect(() => {
+    setJumpNext(false);
+  }, []);
+
+  // play/pause
   useEffect(() => {
     if (playerState.queue.length > 0) {
       setAudio(playerState.queue[0].audio);
@@ -41,10 +48,28 @@ function Player({
     }
   }, [playerState.playing]);
 
+  // next song
+  useEffect(() => {
+    if (playerState.jumpNext && playerState.queue.length > 0) {
+      setAudio(playerState.queue[0].audio);
+      setJumpNext(false)
+    }
+  }, [playerState.jumpNext])
+
+  // update timebar
+  useEffect(() => {
+    console.log(second, length, playerState.playing, playerState.jumpNext)
+    if (length > 0 && playerState.playing && second === Math.trunc(length) && !playerState.jumpNext) {
+      console.log("siguiente cancion!")
+      setJumpNext(true);
+      consumeFromQueue();
+    }
+  }, [second]);
+
   function playHandler() {
     player.current.play();
     playRedux();
-    setDuration(get(player, 'current.duration'));
+    setLength(get(player, 'current.duration'));
     const int = setInterval(() => {
       setSecond(Math.trunc(get(player, 'current.currentTime')))
     }, 1000);
@@ -59,7 +84,7 @@ function Player({
   }
 
   function setTime(percentage) {
-    const second = percentage * duration / 100;
+    const second = percentage * length / 100;
     setSecond(second);
     player.current.currentTime = second;
   }
@@ -101,11 +126,11 @@ function Player({
             {
               <TimeBar
                 handler={setTime}
-                value={second * 100 / duration}
+                value={second * 100 / length}
               />
             }
-            <div className={classes.duration}>
-              {secondsToShortString(duration)}
+            <div className={classes.length}>
+              {secondsToShortString(length)}
             </div>
           </div>
         </div>
@@ -147,6 +172,8 @@ const mapDispatchToProps = (dispatch) => {
   return ({
     playRedux: () => dispatch(playAction()),
     pauseRedux: () => dispatch(pauseAction()),
+    setJumpNext: (val) => dispatch(setJumpNext(val)),
+    consumeFromQueue: () => dispatch(consumeFromQueue()),
   })
 };
 

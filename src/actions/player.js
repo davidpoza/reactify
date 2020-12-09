@@ -53,3 +53,8 @@ export const play = () => ({
 export const pause = () => ({
   type: types.PAUSE,
 })
+
+export const setJumpNext = (value) => ({
+  type: types.SET_JUMP_NEXT,
+  value
+})
