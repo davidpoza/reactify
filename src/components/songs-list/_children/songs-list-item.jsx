@@ -42,6 +42,7 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
       songAlbum: item.album,
       songArtist: item.author,
       albumCover: item.cover,
+      songAudio: item.audio,
     });
   }
 

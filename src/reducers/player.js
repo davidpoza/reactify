@@ -16,6 +16,7 @@ const reducer = (state = initialState, action) => {
           album: action.songAlbum,
           artist: action.songArtist,
           cover: action.albumCover,
+          audio: action.songAudio
         }],
       }
     case types.CONSUME_FROM_QUEUE: // first out

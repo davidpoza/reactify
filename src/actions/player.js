@@ -10,7 +10,7 @@ import types from './types';
  * @param {string} param.albumCover
  */
 export const addToQueue = ({
-  songId, songName, songSeconds, songAlbum, songArtist, albumCover
+  songId, songName, songSeconds, songAlbum, songArtist, albumCover, songAudio,
 }) => ({
   type: types.ADD_TO_QUEUE,
   songId,
@@ -18,7 +18,8 @@ export const addToQueue = ({
   songSeconds,
   songAlbum,
   songArtist,
-  albumCover
+  albumCover,
+  songAudio,
 });
 
 /**

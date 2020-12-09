@@ -22,6 +22,7 @@ function QueueView({
         album: e.album,
         duration: e.seconds,
         cover: e.cover,
+        audio: e.audio,
       });
     });
   }

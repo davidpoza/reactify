@@ -40,7 +40,7 @@ export default makeStyles((theme) => ({
   },
   headerDuration: {
     color: '#afafaf',
-    flex: '1 1 120px',
+    flex: '1 1 100px',
     alignItems: 'center',
   },
   headerTitle: {

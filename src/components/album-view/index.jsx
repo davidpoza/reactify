@@ -31,6 +31,7 @@ function AlbumView({
         author: albumData.artists[0].name,
         duration: e.duration,
         cover: albumData.cover.url,
+        audio: e.audio.url,
       });
     });
   }
