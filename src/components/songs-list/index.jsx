@@ -6,6 +6,9 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 // material ui
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ClockIcon from '@material-ui/icons/AccessTime';
+
 
 // own
 import MyListItem from './_children/songs-list-item';
@@ -21,21 +24,23 @@ function SongsList({ songs, variant, heightOffset = 0}) {
 
   return (
     <>
-      <div style={{display:'flex'}}>
-        <ListItemText primary="#" className={classes.headerNumber} />
-        <ListItemText primary="TITLE" className={classes.headerTitle} />
+      <div className={classes.rowHeader} style={{display:'flex'}}>
+        <ListItemText secondary="#" className={classes.headerNumber} />
+        <ListItemText secondary="TITLE" className={classes.headerTitle} />
         {
           (variant === 'playlist' || variant === 'queue') &&
           <>
-            <ListItemText primary=""/>
-            <ListItemText primary="ALBUM"/>
+            <ListItemText secondary=""/>
+            <ListItemText secondary="ALBUM"/>
           </>
         }
         {
           variant === 'playlist' &&
-          <ListItemText primary="DATE ADDED" />
+          <ListItemText secondary="DATE ADDED" />
         }
-        <ListItemText primary="DURATION" className={classes.headerDuration} />
+        <ListItemIcon className={classes.headerDuration}>
+          <ClockIcon fontSize="small" />
+        </ListItemIcon>
       </div>
       <AutoSizer>
         {

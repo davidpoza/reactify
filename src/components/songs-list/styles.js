@@ -28,6 +28,10 @@ export default makeStyles((theme) => ({
       backgroundColor: '#2a2a2a',
     }
   },
+  rowHeader: {
+    color: '#afafaf',
+    borderBottom: '1px solid #2f2f2f',
+  },
   headerNumber: {
     minWidth: '50px',
     width: '50px',
@@ -35,7 +39,9 @@ export default makeStyles((theme) => ({
     textAlign: 'center',
   },
   headerDuration: {
+    color: '#afafaf',
     flex: '1 1 120px',
+    alignItems: 'center',
   },
   headerTitle: {
     minWidth: '240px',
