@@ -46,3 +46,10 @@ export const replaceQueue = (newQueue) => ({
   newQueue,
 })
 
+export const play = () => ({
+  type: types.PLAY,
+})
+
+export const pause = () => ({
+  type: types.PAUSE,
+})

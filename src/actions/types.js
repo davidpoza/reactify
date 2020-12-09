@@ -12,6 +12,8 @@ const actions = [
   'CONSUME_FROM_QUEUE',
   'REMOVE_FROM_QUEUE',
   'CLEAR_QUEUE',
+  'PLAY',
+  'PAUSE'
 ];
 
 const actionTypes = {};

@@ -15,13 +15,15 @@ import PauseIcon from '@material-ui/icons/Pause';
 import useStyles from '../styles.js';
 import Config from '../../../utils/config';
 import { secondsToShortString } from '../../../utils/utilities';
-import { addToQueue } from '../../../actions/player';
+import { addToQueue, play, pause } from '../../../actions/player';
 
 /**
  * This component will be used on Albums and playlists.
  */
 
-function SongListItem({ index, style, data, addToQueue, playerState, variant = 'album' }) {
+function SongListItem({
+   index, style, data, addToQueue, play, pause, playerState, variant = 'album'
+  }) {
   const classes = useStyles();
   const [displayIcon, setDisplayIcon] = useState(false);
   const item = data[index];
@@ -44,6 +46,7 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
       albumCover: item.cover,
       songAudio: item.audio,
     });
+    play();
   }
 
   return (
@@ -114,6 +117,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToQueue: (obj) => dispatch(addToQueue(obj)),
+    play: () => dispatch(play()),
+    pause: () => dispatch(pause()),
   }
 }
 

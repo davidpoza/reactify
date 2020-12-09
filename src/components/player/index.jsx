@@ -11,39 +11,47 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import QueueIcon from '@material-ui/icons/QueueMusic';
 
 // own
+import Config from '../../utils/config';
 import useStyles from './styles';
 import { secondsToShortString } from '../../utils/utilities';
-import { addToQueue, removeFromQueue } from '../../actions/player';
+import { play as playAction, pause as pauseAction } from '../../actions/player';
 import TimeBar from './_children/time-bar';
 import VolumeControl from './_children/volume-control';
 
 function Player({
-  playerState
+  playerState, playRedux, pauseRedux,
 }) {
   const [duration, setDuration] = useState(0);
-  const [playing, setPlaying] = useState(false);
   const [second, setSecond] = useState(0);
   const [volume, setVolume] = useState(0.5);
+  const [audio, setAudio] = useState();
   const classes = useStyles();
   const player = useRef();
   let interval = null;
 
   useEffect(() => {
+    if (playerState.queue.length > 0) {
+      setAudio(playerState.queue[0].audio);
+      if (playerState.playing) {
+        playHandler();
+      } else {
+        pauseHandler();
+      }
+    }
+  }, [playerState.playing]);
 
-  });
-
-  function play() {
+  function playHandler() {
     player.current.play();
-    setPlaying(true);
+    playRedux();
     setDuration(get(player, 'current.duration'));
     interval = setInterval(() => {
       setSecond(Math.trunc(get(player, 'current.currentTime')))
     }, 1000);
   }
 
-  function pause() {
+  function pauseHandler() {
     player.current.pause();
-    setPlaying(false);
+    pauseRedux();
     clearInterval(interval);
   }
 
@@ -71,11 +79,11 @@ function Player({
             <IconButton aria-label="previous" >
               <SkipPreviousIcon className={classes.previousIcon} />
             </IconButton>
-            { playing
-              ? <IconButton title="Pause" aria-label="pause" onClick={pause} className={classes.playBtn}>
+            { playerState.playing
+              ? <IconButton title="Pause" aria-label="pause" onClick={pauseHandler} className={classes.playBtn}>
                   <PauseCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
-              : <IconButton title="Resume" aria-label="play" onClick={play} className={classes.playBtn}>
+              : <IconButton title="Resume" aria-label="play" onClick={playHandler} className={classes.playBtn}>
                   <PlayCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
             }
@@ -119,7 +127,7 @@ function Player({
       </div>
 
       <audio id="player" preload='auto' ref={player}>
-        <source src='http://localhost:1337/uploads/Phil_Collins_It_s_Not_Too_Late_f70c57813e.flac' type='audio/flac' />
+        <source src={`${Config.API_HOST}${audio}`} type='audio/flac' />
       </audio>
     </div>
   );
@@ -133,7 +141,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-
+    playRedux: () => dispatch(playAction()),
+    pauseRedux: () => dispatch(pauseAction()),
   })
 };
 
