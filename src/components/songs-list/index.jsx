@@ -4,35 +4,59 @@ import PropType from 'prop-types';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
+// material ui
+import ListItemText from '@material-ui/core/ListItemText';
+
 // own
-import ListItem from './_children/songs-list-item';
+import MyListItem from './_children/songs-list-item';
 import useStyles from './styles.js'
 
 
-function SongsList({ songs, variant }) {
+function SongsList({ songs, variant, heightOffset = 0}) {
   const classes = useStyles();
 
   function ListItemWithVariant(props) {
-    return <ListItem {...props} variant = {variant} />
+    return <MyListItem {...props} variant = {variant} />
   }
 
   return (
-    <AutoSizer>
-      {
-        ({ height, width}) => (
-          <FixedSizeList
-            width={width} height={400} itemSize={60} itemCount={songs.length} itemData={songs}>
-            {
-              ListItemWithVariant
-            }
-          </FixedSizeList>
-        )
-      }
-    </AutoSizer>
+    <>
+      <div style={{display:'flex'}}>
+        <ListItemText primary="#" className={classes.headerNumber} />
+        <ListItemText primary="TITLE" className={classes.headerTitle} />
+        {
+          (variant === 'playlist' || variant === 'queue') &&
+          <>
+            <ListItemText primary=""/>
+            <ListItemText primary="ALBUM"/>
+          </>
+        }
+        {
+          variant === 'playlist' &&
+          <ListItemText primary="DATE ADDED" />
+        }
+        <ListItemText primary="DURATION" className={classes.headerDuration} />
+      </div>
+      <AutoSizer>
+        {
+          ({ height, width}) => (
+            <>
+              <FixedSizeList
+                width={width} height={height-heightOffset} itemSize={60} itemCount={songs.length} itemData={songs}>
+                {
+                  ListItemWithVariant
+                }
+              </FixedSizeList>
+            </>
+          )
+        }
+      </AutoSizer>
+    </>
   );
 }
 
 SongsList.propType = {
+  heightOffset: PropType.number,
   variant: PropType.string,
   songs: PropType.arrayOf(
     PropType.shape({

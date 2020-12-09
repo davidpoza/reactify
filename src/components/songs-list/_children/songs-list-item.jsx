@@ -63,7 +63,7 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
         : <ListItemText primary={item.number} className={classes.number} />
       }
       {
-        variant === 'playlist' && item.album && item.cover &&
+        (variant === 'playlist' || variant === 'queue') && item.album && item.cover &&
         <ListItemAvatar>
           <Avatar
             variant="square"
@@ -75,11 +75,11 @@ function SongListItem({ index, style, data, addToQueue, playerState, variant = '
 
       <ListItemText primary={item.name} secondary={item.author} className={classes.title} />
       {
-        variant === 'playlist' && item.album &&
+        (variant === 'playlist' || variant === 'queue') && item.album &&
         <ListItemText primary={item.album} />
       }
       {
-        item.dateAdded &&
+        variant === 'playlist' && item.dateAdded &&
         <ListItemText primary={item.dateAdded} />
       }
       <ListItemText primary={secondsToShortString(item.duration)} className={classes.duration} />

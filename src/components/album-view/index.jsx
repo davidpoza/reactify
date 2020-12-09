@@ -60,7 +60,7 @@ function AlbumView({
     return null;
   }
 
-  return (<div>
+  return (<div className={classes.root}>
     <div className={classes.header} style={{ background: `linear-gradient(${color1}, ${color2})`}}>
       <img src={`${Config.API_HOST}${album.cover.url}`} className={classes.cover}
         alt={`Carátula del disco ${album.name}`} />
@@ -70,7 +70,7 @@ function AlbumView({
         <h2 className={classes.data}>{album.artists[0].name} - {album.year} - {songs.length} canciones - {totalTime}</h2>
       </div>
     </div>
-    <SongsList songs={songs} />
+    <SongsList songs={songs} heightOffset={600} />
   </div>);
 }
 const mapStateToProps = (state) => {

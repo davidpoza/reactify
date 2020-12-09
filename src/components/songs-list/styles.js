@@ -27,6 +27,19 @@ export default makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#2a2a2a',
     }
+  },
+  headerNumber: {
+    minWidth: '50px',
+    width: '50px',
+    flex: 'none',
+    textAlign: 'center',
+  },
+  headerDuration: {
+    flex: '1 1 120px',
+  },
+  headerTitle: {
+    minWidth: '240px',
+    flex: '4 4 400px',
   }
 
 }));

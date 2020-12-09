@@ -15,6 +15,7 @@ function QueueView({
   function transformSongs(arrSongs) {
     return arrSongs.map((e, index) => {
       return ({
+        number: index+1,
         id: e.id,
         name: e.name,
         author: e.artist,
@@ -39,7 +40,7 @@ function QueueView({
         </Button>
       }
     </div>
-    <SongsList songs={transformSongs(playerState.queue)} variant="playlist" />
+    <SongsList songs={transformSongs(playerState.queue)} variant="queue" heightOffset={200} />
     </div>);
 
 }
