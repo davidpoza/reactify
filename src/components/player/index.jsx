@@ -26,9 +26,9 @@ function Player({
   const [second, setSecond] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [audio, setAudio] = useState();
+  const [interval, saveInterval] = useState(null);
   const classes = useStyles();
   const player = useRef();
-  let interval = null;
 
   useEffect(() => {
     if (playerState.queue.length > 0) {
@@ -45,15 +45,17 @@ function Player({
     player.current.play();
     playRedux();
     setDuration(get(player, 'current.duration'));
-    interval = setInterval(() => {
+    const int = setInterval(() => {
       setSecond(Math.trunc(get(player, 'current.currentTime')))
     }, 1000);
+    saveInterval(int);
   }
 
   function pauseHandler() {
     player.current.pause();
     pauseRedux();
     clearInterval(interval);
+    saveInterval(null);
   }
 
   function setTime(percentage) {
