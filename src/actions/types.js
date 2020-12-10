@@ -14,7 +14,8 @@ const actions = [
   'CLEAR_QUEUE',
   'PLAY',
   'PAUSE',
-  'SET_JUMP_NEXT'
+  'SET_JUMP_NEXT',
+  'SET_RELOAD'
 ];
 
 const actionTypes = {};

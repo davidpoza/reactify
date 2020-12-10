@@ -3,6 +3,7 @@ import types from '../actions/types';
 const initialState = {
   playing: false,
   jumpNext: false,
+  reload: false,
   queue: [],
 }
 // Remember: Queue works as FIFO
@@ -57,6 +58,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         jumpNext: action.value,
+      }
+    case types.SET_RELOAD:
+      return {
+        ...state,
+        reload: action.value,
       }
     default:
       return state;

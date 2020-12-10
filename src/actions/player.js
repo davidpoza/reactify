@@ -58,3 +58,8 @@ export const setJumpNext = (value) => ({
   type: types.SET_JUMP_NEXT,
   value
 })
+
+export const setReload = (value) => ({
+  type: types.SET_RELOAD,
+  value
+});

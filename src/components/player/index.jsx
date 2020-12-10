@@ -16,18 +16,19 @@ import Config from '../../utils/config';
 import useStyles from './styles';
 import { secondsToShortString } from '../../utils/utilities';
 import {
-  play as playAction, pause as pauseAction, setJumpNext, consumeFromQueue
+  play as playAction, pause as pauseAction, setJumpNext, setReload, consumeFromQueue, pause,
 } from '../../actions/player';
 import TimeBar from './_children/time-bar';
 import VolumeControl from './_children/volume-control';
 
 function Player({
-  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue
+  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue, setReload
 }) {
   const [length, setLength] = useState(0);
   const [second, setSecond] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [audio, setAudio] = useState();
+  const [canPlay, setCanPlay] = useState(false);
   const [interval, saveInterval] = useState(null);
   const classes = useStyles();
   const player = useRef();
@@ -57,9 +58,11 @@ function Player({
   useEffect(() => {
     if (playerState.jumpNext && playerState.queue.length > 0) {
       console.log("next song:", playerState.queue[0].audio)
+      setCanPlay(false);
       setJumpNext(false);
       pauseHandler();
       setAudio(playerState.queue[0].audio);
+      console.log("load()")
       player.current.load();
       setTimeout(() => {
         playHandler();
@@ -68,7 +71,21 @@ function Player({
     }
   }, [playerState.jumpNext])
 
-  // update timebar
+  // reload audio component
+  useEffect(() => {
+    if (playerState.reload) {
+      setCanPlay(false);
+      setTimeout(() => {
+        pauseHandler();
+        console.log("load()")
+        player.current.load();
+        setReload(false);
+        playHandler();
+      }, 1000);
+    }
+  }, [playerState.reload]);
+
+  // checks if audio ends
   useEffect(() => {
     if (length > 0 && playerState.playing && second === Math.trunc(length) && !playerState.jumpNext) {
       setJumpNext(true);
@@ -76,14 +93,23 @@ function Player({
     }
   }, [second]);
 
+  // if audio wasn't able to be played during playHandler, now we try again
+  useEffect(() => {
+    if (canPlay && playerState.playing) {
+      playHandler();
+    }
+  }, [canPlay]);
+
   function playHandler() {
-    player.current.play();
     playRedux();
-    setLength(get(player, 'current.duration'));
-    const int = setInterval(() => {
-      setSecond(Math.trunc(get(player, 'current.currentTime')))
-    }, 1000);
-    saveInterval(int);
+    if (canPlay) {
+      player.current.play();
+      setLength(get(player, 'current.duration'));
+      const int = setInterval(() => {
+        setSecond(Math.trunc(get(player, 'current.currentTime')))
+      }, 1000);
+      saveInterval(int);
+    }
   }
 
   function pauseHandler() {
@@ -98,6 +124,10 @@ function Player({
     setJumpNext(true);
     consumeFromQueue();
     playHandler();
+  }
+
+  function onCanPlayHandler() {
+    setCanPlay(true);
   }
 
   function setTime(percentage) {
@@ -172,8 +202,10 @@ function Player({
         </div>
       </div>
 
-      <audio id="player" preload='auto' ref={player}>
-        <source src={`${Config.API_HOST}${audio}`} type='audio/flac' />
+      <audio id="player" preload='auto' ref={player} onCanPlay={onCanPlayHandler}>
+        <source
+          src={`${Config.API_HOST}${audio}`} type='audio/flac'
+        />
       </audio>
     </div>
   );
@@ -190,6 +222,7 @@ const mapDispatchToProps = (dispatch) => {
     playRedux: () => dispatch(playAction()),
     pauseRedux: () => dispatch(pauseAction()),
     setJumpNext: (val) => dispatch(setJumpNext(val)),
+    setReload: (val) => dispatch(setReload(val)),
     consumeFromQueue: () => dispatch(consumeFromQueue()),
   })
 };
