@@ -85,14 +85,6 @@ function Player({
     }
   }, [playerState.reload]);
 
-  // checks if audio ends
-  useEffect(() => {
-    if (length > 0 && playerState.playing && second === Math.trunc(length) && !playerState.jumpNext) {
-      setJumpNext(true);
-      consumeFromQueue();
-    }
-  }, [second]);
-
   // if audio wasn't able to be played during playHandler, now we try again
   useEffect(() => {
     if (canPlay && playerState.playing) {
@@ -128,6 +120,13 @@ function Player({
 
   function onCanPlayHandler() {
     setCanPlay(true);
+  }
+
+  function onEndedHandler() {
+    if (length > 0 && playerState.playing && !playerState.jumpNext) {
+      setJumpNext(true);
+      consumeFromQueue();
+    }
   }
 
   function setTime(percentage) {
@@ -202,7 +201,7 @@ function Player({
         </div>
       </div>
 
-      <audio id="player" preload='auto' ref={player} onCanPlay={onCanPlayHandler}>
+      <audio id="player" preload='auto' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
         <source
           src={`${Config.API_HOST}${audio}`} type='audio/flac'
         />
