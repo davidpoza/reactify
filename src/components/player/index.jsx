@@ -93,6 +93,13 @@ function Player({
     saveInterval(null);
   }
 
+  function nextHandler() {
+    pauseHandler();
+    setJumpNext(true);
+    consumeFromQueue();
+    playHandler();
+  }
+
   function setTime(percentage) {
     const second = percentage * length / 100;
     setSecond(second);
@@ -125,7 +132,7 @@ function Player({
                   <PlayCircleOutlineIcon className={classes.playIcon} />
                 </IconButton>
             }
-            <IconButton aria-label="next">
+            <IconButton aria-label="next" onClick={nextHandler}>
               <SkipNextIcon className={classes.nextIcon} />
             </IconButton>
           </div>
