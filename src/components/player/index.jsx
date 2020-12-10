@@ -32,7 +32,7 @@ function Player({
   const classes = useStyles();
   const player = useRef();
 
-
+ // pause song on page refresh
   useEffect(() => {
     setJumpNext(false);
     window.addEventListener('beforeunload', pauseRedux);

@@ -12,12 +12,12 @@ import SongsList from '../songs-list';
 import useStyles from './styles.js'
 import Config from '../../utils/config';
 import { makeToolbarTransparent } from '../../actions/ui';
-import { replaceQueue } from '../../actions/player';
+import { replaceQueue, play } from '../../actions/player';
 import { secondsToLongString } from  '../../utils/utilities';
 
 
 function AlbumView({
-   user, makeToolbarTransparent, replaceQueue
+   user, makeToolbarTransparent, replaceQueue, play
 }) {
   const color1 = 'blue';
   const color2 = 'pink';
@@ -50,6 +50,7 @@ function AlbumView({
 
   function handleOnClickPlay() {
     replaceQueue(songs);
+    play();
   }
 
   const totalTime = useMemo(() => {
@@ -95,7 +96,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     makeToolbarTransparent: () => dispatch(makeToolbarTransparent()),
-    replaceQueue: (newQueue) => dispatch(replaceQueue(newQueue))
+    replaceQueue: (newQueue) => dispatch(replaceQueue(newQueue)),
+    play: () => dispatch(play())
   }
 }
 
