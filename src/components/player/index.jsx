@@ -32,8 +32,13 @@ function Player({
   const classes = useStyles();
   const player = useRef();
 
+
   useEffect(() => {
     setJumpNext(false);
+    window.addEventListener('beforeunload', pauseRedux);
+    return () => {
+      window.removeEventListener('beforeunload', pauseRedux);
+    }
   }, []);
 
   // play/pause
@@ -51,16 +56,21 @@ function Player({
   // next song
   useEffect(() => {
     if (playerState.jumpNext && playerState.queue.length > 0) {
+      console.log("next song:", playerState.queue[0].audio)
+      setJumpNext(false);
+      pauseHandler();
       setAudio(playerState.queue[0].audio);
-      setJumpNext(false)
+      player.current.load();
+      setTimeout(() => {
+        playHandler();
+      }, 1000);
+
     }
   }, [playerState.jumpNext])
 
   // update timebar
   useEffect(() => {
-    console.log(second, length, playerState.playing, playerState.jumpNext)
     if (length > 0 && playerState.playing && second === Math.trunc(length) && !playerState.jumpNext) {
-      console.log("siguiente cancion!")
       setJumpNext(true);
       consumeFromQueue();
     }
