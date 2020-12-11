@@ -96,6 +96,7 @@ function Player({
     playRedux();
     if (canPlay) {
       player.current.play();
+      console.log("--->", player, get(player, 'current.duration'))
       setLength(get(player, 'current.duration'));
       const int = setInterval(() => {
         setSecond(Math.trunc(get(player, 'current.currentTime')))
@@ -143,65 +144,70 @@ function Player({
     player.current.volume = value / 100;
   }
 
-    return (<div className={classes.root}>
-      <div className={classes.content}>
-        <div className={classes.info}>
-          info
-        </div>
-        <div className={classes.controls}>
-          <div className={classes.buttons}>
-            <IconButton aria-label="previous" >
-              <SkipPreviousIcon className={classes.previousIcon} />
-            </IconButton>
-            { playerState.playing
-              ? <IconButton title="Pause" aria-label="pause" onClick={pauseHandler} className={classes.playBtn}>
-                  <PauseCircleOutlineIcon className={classes.playIcon} />
-                </IconButton>
-              : <IconButton title="Resume" aria-label="play" onClick={playHandler} className={classes.playBtn}>
-                  <PlayCircleOutlineIcon className={classes.playIcon} />
-                </IconButton>
-            }
-            <IconButton aria-label="next" onClick={nextHandler}>
-              <SkipNextIcon className={classes.nextIcon} />
-            </IconButton>
-          </div>
-          <div className={classes.bar}>
-            <div className={classes.currentTime}>
-              {secondsToShortString(second)}
-            </div>
-            {
-              <TimeBar
-                handler={setTime}
-                value={second * 100 / length}
-              />
-            }
-            <div className={classes.length}>
-              {secondsToShortString(length)}
-            </div>
-          </div>
-        </div>
-        <div className={classes.extra}>
-          {
-            <>
-              <Link to="/queue">
-                <IconButton
-                  title="See queue"
-                  aria-label="queue"
-                  className={classes.extraButton}
-                >
-                  <QueueIcon fontSize="small" className={classes.extraIcon} />
-                </IconButton>
-              </Link>
-              <VolumeControl
-                handler={setVolumeSlider}
-                value={volume}
-              />
-            </>
-          }
-        </div>
-      </div>
 
-      <audio id="player" preload='auto' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
+
+  return (
+    <div className={classes.root}>
+      {
+        (playerState.queue.length !== 0) &&
+        <div className={classes.content}>
+          <div className={classes.info}>
+            info
+          </div>
+          <div className={classes.controls}>
+            <div className={classes.buttons}>
+              <IconButton aria-label="previous" >
+                <SkipPreviousIcon className={classes.previousIcon} />
+              </IconButton>
+              { playerState.playing
+                ? <IconButton title="Pause" aria-label="pause" onClick={pauseHandler} className={classes.playBtn}>
+                    <PauseCircleOutlineIcon className={classes.playIcon} />
+                  </IconButton>
+                : <IconButton title="Resume" aria-label="play" onClick={playHandler} className={classes.playBtn}>
+                    <PlayCircleOutlineIcon className={classes.playIcon} />
+                  </IconButton>
+              }
+              <IconButton aria-label="next" onClick={nextHandler}>
+                <SkipNextIcon className={classes.nextIcon} />
+              </IconButton>
+            </div>
+            <div className={classes.bar}>
+              <div className={classes.currentTime}>
+                {secondsToShortString(second)}
+              </div>
+              {
+                <TimeBar
+                  handler={setTime}
+                  value={second * 100 / length}
+                />
+              }
+              <div className={classes.length}>
+                {secondsToShortString(length)}
+              </div>
+            </div>
+          </div>
+          <div className={classes.extra}>
+            {
+              <>
+                <Link to="/queue">
+                  <IconButton
+                    title="See queue"
+                    aria-label="queue"
+                    className={classes.extraButton}
+                  >
+                    <QueueIcon fontSize="small" className={classes.extraIcon} />
+                  </IconButton>
+                </Link>
+                <VolumeControl
+                  handler={setVolumeSlider}
+                  value={volume}
+                />
+              </>
+            }
+          </div>
+        </div>
+      }
+      <audio id="player" preload='auto' ref={player} onCanPlayThrough={onCanPlayHandler} onEnded={onEndedHandler}>
         <source
           src={`${Config.API_HOST}${audio}`} type='audio/flac'
         />

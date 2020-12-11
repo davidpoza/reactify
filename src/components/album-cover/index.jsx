@@ -39,7 +39,6 @@ function AlbumCover({
       token: user.jwt,
       albumId: id,
     });
-    console.log(transformSongs(songs, { name, artist, cover }))
     replaceQueue(transformSongs(songs, { name, artist, cover }) );
     setReload(true);
   }
