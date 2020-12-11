@@ -47,7 +47,7 @@ function Player({
   useEffect(() => {
     if (playerState.queue.length > 0) {
       if (playerState.playing) {
-        playHandler();
+        setReload(true);
       } else {
         pauseHandler();
       }
