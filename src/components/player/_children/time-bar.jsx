@@ -43,7 +43,7 @@ function TimeBar({
     <CustomSlider
       classes={styles}
       onChange={(e, value) => { handler(value) }}
-      aria-label="control de tiempo de reproductor de audio"
+      aria-label="audio time bar"
       onMouseEnter={() => { setHovered(true)}}
       onMouseLeave={() => { setHovered(false)}}
       value={value}
