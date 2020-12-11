@@ -50,7 +50,7 @@ function AlbumView({
       setSongs(
         transformSongs(
           await getAlbumSongs({ token: user.jwt, albumId: id }),
-          { name: albumData, artist: albumData.artists[0].name, cover: albumData.cover.url }
+          { name: albumData.name, artist: albumData.artists[0].name, cover: albumData.cover.url }
         )
       );
     }
