@@ -7,11 +7,11 @@ export default makeStyles((theme) => ({
     margin: '0.5em 0.5em 0.5em 0',
     cursor: 'pointer',
   },
-  menuEmail: {
-    opacity: '1 !important',
-  },
   username: {
     color: '#fff',
     cursor: 'pointer',
+  },
+  icon: {
+    color: '#4d4d4d',
   }
 }));

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import get from 'lodash.get';
 import PropTypes from 'prop-types';
 
@@ -7,6 +8,10 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import PersonIcon from '@material-ui/icons/PersonOutline';
+import ExitIcon from '@material-ui/icons/ExitToApp';
+import Typography from '@material-ui/core/Typography';
 
 // own
 import { doLogout } from '../../actions/user';
@@ -48,8 +53,19 @@ function MyAvatar(props) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem className={classes.menuEmail} disabled>ssss</MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem component={Link} to="/profile" className={classes.menuEmail}>
+            <ListItemIcon>
+              <PersonIcon className={classes.icon} fontSize="small" />
+            </ListItemIcon>
+            <Typography>My profile</Typography>
+          </MenuItem>
+
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+                <ExitIcon className={classes.icon} fontSize="small" />
+            </ListItemIcon>
+            <Typography>Logout</Typography>
+          </MenuItem>
         </Menu>
       </>
     );
