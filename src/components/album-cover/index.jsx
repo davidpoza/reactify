@@ -35,7 +35,8 @@ function AlbumCover({
     setDisplay(false);
   }
 
-  async function handleOnClickPlay() {
+  async function handleOnClickPlay(e) {
+    e.preventDefault();
     const songs = await getAlbumSongs({
       token: user.jwt,
       albumId: id,
