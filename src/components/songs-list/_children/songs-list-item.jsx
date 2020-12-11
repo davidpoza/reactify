@@ -29,24 +29,30 @@ function SongListItem({
   const item = data[index];
 
   function onMouseEnterHandler() {
-    setDisplayIcon(true);
+    if (variant !== 'queue') {
+      setDisplayIcon(true);
+    }
   }
 
   function onMouseLeaveHandler() {
-    setDisplayIcon(false);
+    if (variant !== 'queue') {
+      setDisplayIcon(false);
+    }
   }
 
   function handleOnClick() {
-    addToQueue({
-      songId: item.id,
-      songName: item.name,
-      songSeconds: item.seconds,
-      songAlbum: item.album,
-      songArtist: item.artist,
-      albumCover: item.cover,
-      songAudio: item.audio,
-    });
-    play();
+    if (variant !== 'queue') {
+      addToQueue({
+        songId: item.id,
+        songName: item.name,
+        songSeconds: item.seconds,
+        songAlbum: item.album,
+        songArtist: item.artist,
+        albumCover: item.cover,
+        songAudio: item.audio,
+      });
+      play();
+    }
   }
 
   return (
