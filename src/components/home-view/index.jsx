@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-// material ui
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-
 // own
 import useStyles from './styles.js';
-import AlbumCover from '../album-cover';
+import AlbumList from '../album-list';
 import SongsList from '../songs-list/index.jsx';
-import {getAlbum} from '../../api-client/album';
 import { makeToolbarOpaque } from '../../actions/ui';
 
 const songs = [
@@ -18,8 +13,7 @@ const songs = [
 ]
 
 function HomeView({ makeToolbarOpaque }) {
-  getAlbum({ token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA3Mjc3Mzk2LCJleHAiOjE2MDk4NjkzOTZ9.Yzv5p_Jdspc9Y-zeeZaWkgeW1rvuByl7BnoGZdeqDCY' })
-   .then(data => console.log(data))
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -27,15 +21,7 @@ function HomeView({ makeToolbarOpaque }) {
   }, []);
 
   return (<div className={classes.root}>
-    <Grid container spacing={3}>
-      {
-        [1,2,3,4,5,6,7,8,9,10].map((e, index) => {
-          return (<Grid item >
-            <AlbumCover id={1} name={`Testify ${index}`} artist="Phil Collins" cover="/uploads/thumbnail_download_5638d95acc.jpeg" />
-          </Grid>);
-        })
-      }
-    </Grid>
+    <AlbumList />
 
     <SongsList songs={songs} />
     </div>
