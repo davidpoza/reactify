@@ -15,7 +15,11 @@ const actions = [
   'PLAY',
   'PAUSE',
   'SET_JUMP_NEXT',
-  'SET_RELOAD'
+  'SET_RELOAD',
+
+  // history
+  'LOG_SONG',
+  'LOG_ALBUM',
 ];
 
 const actionTypes = {};

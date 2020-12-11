@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // own
 import useStyles from './styles.js';
 import AlbumList from '../album-list';
-import SongsList from '../songs-list/index.jsx';
+import LastSongs from '../last-songs';
 import { makeToolbarOpaque } from '../../actions/ui';
 
 const songs = [
@@ -21,9 +21,7 @@ function HomeView({ makeToolbarOpaque }) {
   }, []);
 
   return (<div className={classes.root}>
-    <AlbumList />
-
-    <SongsList songs={songs} />
+    <LastSongs />
     </div>
   );
 }

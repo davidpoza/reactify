@@ -15,14 +15,14 @@ import PauseIcon from '@material-ui/icons/Pause';
 import useStyles from '../styles.js';
 import Config from '../../../utils/config';
 import { secondsToShortString } from '../../../utils/utilities';
-import { addToQueue, play, pause } from '../../../actions/player';
+import { addToQueue, play, pause, setReload } from '../../../actions/player';
 
 /**
  * This component will be used on Albums and playlists.
  */
 
 function SongListItem({
-   index, style, data, addToQueue, play, pause, playerState, variant = 'album'
+   index, style, data, addToQueue, play, pause, playerState, variant = 'album', setReload
   }) {
   const classes = useStyles();
   const [displayIcon, setDisplayIcon] = useState(false);
@@ -51,6 +51,7 @@ function SongListItem({
         albumCover: item.cover,
         songAudio: item.audio,
       });
+      setReload(true);
       play();
     }
   }
@@ -73,7 +74,7 @@ function SongListItem({
         : <ListItemText primary={item.number} className={classes.number} />
       }
       {
-        (variant === 'playlist' || variant === 'queue') && item.album && item.cover &&
+        ['playlist', 'queue', 'history'].includes(variant) && item.album && item.cover &&
         <ListItemAvatar>
           <Avatar
             variant="square"
@@ -129,6 +130,7 @@ const mapDispatchToProps = (dispatch) => {
     addToQueue: (obj) => dispatch(addToQueue(obj)),
     play: () => dispatch(play()),
     pause: () => dispatch(pause()),
+    setReload: (val) => dispatch(setReload(val))
   }
 }
 

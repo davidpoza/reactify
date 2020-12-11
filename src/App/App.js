@@ -13,6 +13,7 @@ import store from '../store';
 import theme from '../utils/theme';
 import HomeView from '../components/home-view';
 import AlbumView from '../components/album-view';
+import AlbumsView from '../components/albums-view';
 import Player from '../components/player';
 import QueueView from '../components/queue-view';
 
@@ -22,10 +23,6 @@ import './App.css';
 
 const Search = () => {
   return <p>Search</p>;
-}
-
-const Albums = () => {
-  return <p>Albums</p>;
 }
 
 const Playlists = () => {
@@ -48,7 +45,7 @@ class App extends Component {
                 <ResponsiveDrawer>
                   <PrivateRoute path="/" exact component={HomeView}/>
                   <Route path="/search" exact component={Search}/>
-                  <Route path="/albums" exact component={Albums}/>
+                  <Route path="/albums" exact component={AlbumsView}/>
                   <Route path="/album/:id" exact component={AlbumView}/>
                   <Route path="/playlists" exact component={Playlists}/>
                   <Route path="/downloader" exact component={Downloader}/>
