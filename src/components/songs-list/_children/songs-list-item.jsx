@@ -71,7 +71,7 @@ function SongListItem({
         ? <ListItemIcon className={classes.icon}>
             <PlayArrow />
           </ListItemIcon>
-        : <ListItemText primary={item.number} className={classes.number} />
+        : <ListItemText primary={index+1} className={classes.number} /> // TODO: use item.number instead of index
       }
       {
         ['playlist', 'queue', 'history'].includes(variant) && item.album && item.cover &&

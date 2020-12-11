@@ -13,11 +13,12 @@ import useStyles from './styles.js'
 import Config from '../../utils/config';
 import { makeToolbarTransparent } from '../../actions/ui';
 import { replaceQueue, play , setReload, pause } from '../../actions/player';
+import { logAlbum } from '../../actions/history';
 import { secondsToLongString, transformSongs } from  '../../utils/utilities';
 
 
 function AlbumView({
-   user, makeToolbarTransparent, replaceQueue, play, setReload, pause
+   user, makeToolbarTransparent, replaceQueue, play, setReload, pause, logAlbum
 }) {
   const color1 = 'blue';
   const color2 = 'pink';
@@ -46,11 +47,12 @@ function AlbumView({
     makeToolbarTransparent();
     async function loadContent() {
       const albumData = await getAlbum({ token: user.jwt, albumId: id });
+      const albumObj = { name: albumData.name, artist: albumData.artists[0].name, cover: albumData.cover.url };
+      logAlbum(albumData);
       setAlbum(albumData);
       setSongs(
         transformSongs(
-          await getAlbumSongs({ token: user.jwt, albumId: id }),
-          { name: albumData.name, artist: albumData.artists[0].name, cover: albumData.cover.url }
+          await getAlbumSongs({ token: user.jwt, albumId: id }), albumObj
         )
       );
     }
@@ -89,7 +91,8 @@ const mapDispatchToProps = (dispatch) => {
     replaceQueue: (newQueue) => dispatch(replaceQueue(newQueue)),
     play: () => dispatch(play()),
     pause: () => dispatch(pause()),
-    setReload: (val) => dispatch(setReload(val))
+    setReload: (val) => dispatch(setReload(val)),
+    logAlbum: (obj) => dispatch(logAlbum(obj)),
   }
 }
 
