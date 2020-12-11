@@ -13,7 +13,7 @@ import useStyles from './styles.js'
 import Config from '../../utils/config';
 import { makeToolbarTransparent } from '../../actions/ui';
 import { replaceQueue, play , setReload, pause } from '../../actions/player';
-import { secondsToLongString } from  '../../utils/utilities';
+import { secondsToLongString, transformSongs } from  '../../utils/utilities';
 
 
 function AlbumView({
@@ -25,21 +25,6 @@ function AlbumView({
   const { id } = useParams();
   const [ album, setAlbum ] = useState();
   const [ songs, setSongs ] = useState([]);
-
-  function transformSongs(arrSongs, albumData) {
-    return arrSongs.map((e, index) => {
-      return ({
-        id: e.id,
-        number: index + 1,
-        name: e.name,
-        album: albumData.name,
-        artist: albumData.artists[0].name,
-        seconds: e.duration,
-        cover: albumData.cover.url,
-        audio: e.audio.url,
-      });
-    });
-  }
 
   function calculateTotalTime(arrSongs = []) {
     const totalSeconds = arrSongs
@@ -62,7 +47,12 @@ function AlbumView({
     async function loadContent() {
       const albumData = await getAlbum({ token: user.jwt, albumId: id });
       setAlbum(albumData);
-      setSongs(transformSongs(await getAlbumSongs({ token: user.jwt, albumId: id }), albumData));
+      setSongs(
+        transformSongs(
+          await getAlbumSongs({ token: user.jwt, albumId: id }),
+          { name: albumData, artist: albumData.artists[0].name, cover: albumData.cover.url }
+        )
+      );
     }
     loadContent();
   }, []);

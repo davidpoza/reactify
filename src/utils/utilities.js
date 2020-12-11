@@ -35,3 +35,27 @@ export function secondsToLongString(seconds) {
   }
   return (`${hour} hr ${min} min`);
 }
+
+/**
+ * Transforms model used in fronend to the backend one
+ * @param {Array<Object>} arrSongs
+ * @param {Object} albumData
+ * @param {string} albumData.name
+ * @param {string} albumData.artist
+ * @param {string} albumData.cover
+ */
+export function transformSongs(arrSongs, albumData) {
+  return arrSongs.map((e, index) => {
+    return ({
+      id: e.id,
+      number: index + 1,
+      name: e.name,
+      album: albumData.name,
+      artist: albumData.artist,
+      seconds: e.duration,
+      cover: albumData.cover,
+      audio: e.audio.url,
+    });
+  });
+}
+

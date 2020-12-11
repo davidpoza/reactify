@@ -31,7 +31,7 @@ function Home({ makeToolbarOpaque }) {
       {
         [1,2,3,4,5,6,7,8,9,10].map((e, index) => {
           return (<Grid item >
-            <AlbumCover title={`Testify ${index}`} author="Phil Collins" cover="http://localhost:1337/uploads/thumbnail_download_5638d95acc.jpeg" />
+            <AlbumCover id={1} name={`Testify ${index}`} artist="Phil Collins" cover="/uploads/thumbnail_download_5638d95acc.jpeg" />
           </Grid>);
         })
       }

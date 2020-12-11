@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 // material ui
 import Card from '@material-ui/core/Card';
@@ -14,9 +15,13 @@ import PlayIcon from '@material-ui/icons/PlayCircleFilledWhite';
 
 // own
 import useStyles from './styles';
+import { replaceQueue, setReload } from '../../actions/player';
+import { getAlbumSongs } from '../../api-client/album';
+import { transformSongs } from '../../utils/utilities';
+import Config from '../../utils/config';
 
 function AlbumCover({
-  cover, title, author, link,
+  user, id, cover, name, artist, link, replaceQueue, setReload
 }) {
   const classes = useStyles();
   const [display, setDisplay] = useState(false);
@@ -29,23 +34,33 @@ function AlbumCover({
     setDisplay(false);
   }
 
+  async function handleOnClickPlay() {
+    const songs = await getAlbumSongs({
+      token: user.jwt,
+      albumId: id,
+    });
+    console.log(transformSongs(songs, { name, artist, cover }))
+    replaceQueue(transformSongs(songs, { name, artist, cover }) );
+    setReload(true);
+  }
+
   return (<Card className={classes.root}>
     <CardActionArea className={classes.actionArea} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
       <CardMedia
         component="img"
-        alt={`Cover del álbum ${title} de ${author}`}
+        alt={`Cover del álbum ${name} de ${artist}`}
         className={classes.media}
-        image={cover}
+        image={`${Config.API_HOST}${cover}`}
       />
       <Fade in={display} timeout={500}>
-        <PlayIcon color="primary" className={classes.icon} />
+        <PlayIcon color="primary" className={classes.icon} onClick={handleOnClickPlay} />
       </Fade>
       <CardContent className={classes.content}>
         <Typography gutterBottom variant="h2" component="h2" className={classes.title}>
-          {title}
+          {name}
         </Typography>
         <Typography variant="h3" color="textSecondary" component="h3" className={classes.author}>
-          {author}
+          {artist}
         </Typography>
       </CardContent>
     </CardActionArea>
@@ -53,10 +68,24 @@ function AlbumCover({
 }
 
 AlbumCover.propTypes = {
+  id: PropTypes.number,
   cover: PropTypes.string,
-  title: PropTypes.string,
-  author: PropTypes.string,
+  name: PropTypes.string,
+  artist: PropTypes.string,
   link: PropTypes.string,
 }
 
-export default AlbumCover;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.current,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    replaceQueue: (newQueue) => dispatch(replaceQueue(newQueue)),
+    setReload: (val) => dispatch(setReload(val))
+  });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumCover);
