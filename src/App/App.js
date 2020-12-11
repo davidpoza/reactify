@@ -16,6 +16,7 @@ import AlbumView from '../components/album-view';
 import AlbumsView from '../components/albums-view';
 import Player from '../components/player';
 import QueueView from '../components/queue-view';
+import ProfileView from '../components/profile-view';
 
 // Css
 import './App.css';
@@ -44,12 +45,13 @@ class App extends Component {
                 <Route path="/login" exact component={LoginForm} />
                 <ResponsiveDrawer>
                   <PrivateRoute path="/" exact component={HomeView}/>
-                  <Route path="/search" exact component={Search}/>
-                  <Route path="/albums" exact component={AlbumsView}/>
-                  <Route path="/album/:id" exact component={AlbumView}/>
-                  <Route path="/playlists" exact component={Playlists}/>
-                  <Route path="/downloader" exact component={Downloader}/>
-                  <Route path="/queue" exact component={QueueView}/>
+                  <PrivateRoute path="/search" exact component={Search}/>
+                  <PrivateRoute path="/albums" exact component={AlbumsView}/>
+                  <PrivateRoute path="/album/:id" exact component={AlbumView}/>
+                  <PrivateRoute path="/playlists" exact component={Playlists}/>
+                  <PrivateRoute path="/downloader" exact component={Downloader}/>
+                  <PrivateRoute path="/queue" exact component={QueueView}/>
+                  <PrivateRoute path="/profile" exact component={ProfileView}/>
                   <Player />
                 </ResponsiveDrawer>
               </Switch>
