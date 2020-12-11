@@ -1,12 +1,12 @@
 const actions = [
-  // User
+  // user
   'LOGOUT',
 
-  // UI
+  // ui
   'TRANSPARENT_TOOLBAR',
   'OPAQUE_TOOLBAR',
 
-  // Player
+  // player
   'ADD_TO_QUEUE',
   'REPLACE_QUEUE',
   'CONSUME_FROM_QUEUE',

@@ -8,6 +8,7 @@ import StateLoader from './utils/state-loader';
 import ui from './reducers/ui';
 import user from './reducers/user';
 import player from './reducers/player';
+import albums from './reducers/albums';
 
 const stateLoader = new StateLoader();
 
@@ -16,7 +17,7 @@ const enhancer = composeWithDevTools(
 );
 
 const store = createStore(
-  combineReducers({ ui, user, player }),
+  combineReducers({ ui, user, player, albums }),
   stateLoader.loadState(),
   enhancer
 );

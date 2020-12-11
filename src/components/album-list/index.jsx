@@ -7,20 +7,15 @@ import Grid from '@material-ui/core/Grid';
 // own
 import useStyles from './styles.js';
 import AlbumCover from '../album-cover';
-import {getAlbum} from '../../api-client/album';
+import {getAlbums} from '../../actions/albums';
 
 function AlbumList({
-  user
+  user, getAlbums, albums
 }) {
-  const [albums, setAlbums] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
-    async function loadContent() {
-      const result = await getAlbum({ token: user.jwt });
-      setAlbums(result);
-    }
-    loadContent();
+    getAlbums(user.jwt);
   }, []);
 
 
@@ -28,7 +23,7 @@ function AlbumList({
   return (
     <Grid container spacing={3}>
       {
-        albums.map((album, index) => {
+        albums.fetched.map((album, index) => {
           return (<Grid item key={`$album-grid-item-${album.id}`} >
             <AlbumCover
               key={album.id} id={album.id} name={album.name} artist={album.artists[0].name} cover={album.cover.url}
@@ -42,8 +37,15 @@ function AlbumList({
 
 const mapStateToProps = (state) => {
   return ({
-    user: state.user.current
+    user: state.user.current,
+    albums: state.albums
   });
 }
 
-export default connect(mapStateToProps)(AlbumList);
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    getAlbums: (token, albumId) => dispatch(getAlbums(token, albumId)),
+  });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumList);
