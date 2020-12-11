@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
+    "dayjs": "^1.9.7",
     "lodash.get": "^4.4.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
