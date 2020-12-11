@@ -17,7 +17,7 @@ const songs = [
   { number: 2, name: 'cancion2', artist: 'cantante2', album: 'disco2', dateAdded: '8 Jul 2020', seconds: 356, cover: 'http://localhost:1337/uploads/thumbnail_download_5638d95acc.jpeg' },
 ]
 
-function Home({ makeToolbarOpaque }) {
+function HomeView({ makeToolbarOpaque }) {
   getAlbum({ token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA3Mjc3Mzk2LCJleHAiOjE2MDk4NjkzOTZ9.Yzv5p_Jdspc9Y-zeeZaWkgeW1rvuByl7BnoGZdeqDCY' })
    .then(data => console.log(data))
   const classes = useStyles();
@@ -48,4 +48,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(Home);
+export default connect(() => ({}), mapDispatchToProps)(HomeView);

@@ -11,7 +11,7 @@ import PrivateRoute from '../hocs/private-route';
 import ResponsiveDrawer from '../components/responsive-drawer';
 import store from '../store';
 import theme from '../utils/theme';
-import Home from '../components/home';
+import HomeView from '../components/home-view';
 import AlbumView from '../components/album-view';
 import Player from '../components/player';
 import QueueView from '../components/queue-view';
@@ -46,7 +46,7 @@ class App extends Component {
               <Switch>
                 <Route path="/login" exact component={LoginForm} />
                 <ResponsiveDrawer>
-                  <PrivateRoute path="/" exact component={Home}/>
+                  <PrivateRoute path="/" exact component={HomeView}/>
                   <Route path="/search" exact component={Search}/>
                   <Route path="/albums" exact component={Albums}/>
                   <Route path="/album/:id" exact component={AlbumView}/>
