@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 // material ui
 import Card from '@material-ui/core/Card';
@@ -44,7 +45,12 @@ function AlbumCover({
   }
 
   return (<Card className={classes.root}>
-    <CardActionArea className={classes.actionArea} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
+    <CardActionArea
+      component={Link} to={`/album/${id}`}
+      className={classes.actionArea}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
+    >
       <CardMedia
         component="img"
         alt={`Cover del álbum ${name} de ${artist}`}
