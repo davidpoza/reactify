@@ -18,6 +18,11 @@ export default makeStyles((theme) => ({
     minWidth: '240px',
     flex: '4 4 400px',
   },
+  playingTitle: {
+    minWidth: '240px',
+    flex: '4 4 400px',
+    color: '#309b48',
+  },
   duration: {
     flex: '1 1 100px',
   },

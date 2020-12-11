@@ -83,7 +83,11 @@ function SongListItem({
         </ListItemAvatar>
       }
 
-      <ListItemText primary={item.name} secondary={item.artist} className={classes.title} />
+      <ListItemText
+        primary={item.name}
+        secondary={item.artist}
+        className={variant === 'queue' && playerState.playing && index === 0 ? classes.playingTitle : classes.title}
+      />
       {
         (variant === 'playlist' || variant === 'queue') && item.album &&
         <ListItemText primary={item.album} />
