@@ -22,10 +22,11 @@ import { logSong } from '../../actions/history';
 import TimeBar from './_children/time-bar';
 import VolumeControl from './_children/volume-control';
 import PlayerInfo from './_children/info';
+import withIsMobile from '../../hocs/with-is-mobile';
 
 
 function Player({
-  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue, setReload, logSong
+  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue, setReload, logSong, isMobile,
 }) {
   const [length, setLength] = useState(0);
   const [second, setSecond] = useState(0);
@@ -150,9 +151,9 @@ function Player({
   }
 
   return (
-    <div className={classes.root}>
+    <div className={isMobile ? classes.rootIsMobile : classes.root}>
       <div className={classes.content}>
-        <PlayerInfo />
+        <PlayerInfo isMobile={isMobile} />
         <div className={classes.controls}>
           <div className={classes.buttons}>
             <IconButton aria-label="previous" >
@@ -185,7 +186,9 @@ function Player({
             </div>
           </div>
         </div>
-        <div className={classes.extra}>
+        {
+          !isMobile &&
+          <div className={classes.extra}>
           {
             <>
               <Link to="/queue">
@@ -203,7 +206,8 @@ function Player({
               />
             </>
           }
-        </div>
+          </div>
+        }
       </div>
       <audio id="player" preload='none' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
         <source
@@ -231,4 +235,4 @@ const mapDispatchToProps = (dispatch) => {
   })
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Player);
+export default connect(mapStateToProps, mapDispatchToProps)(withIsMobile(Player));

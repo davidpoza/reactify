@@ -3,14 +3,14 @@ import React from 'react';
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: '2em',
-    height: '80%'
-  },
-}));
 
-const withViewStyles = (Component) => (props) => {
+const withViewStyles = (Component) => ({ isMobile, ...props }) => {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      padding: isMobile ? 0 : '2em',
+      height: '80%'
+    },
+  }));
   const classes = useStyles();
   return (
     <Component {...props} viewClasses={classes.root} />

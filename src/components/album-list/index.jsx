@@ -12,7 +12,7 @@ import withLoader from '../../hocs/with-loader';
 import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumList({
-  user, getAlbums, albums
+  user, getAlbums, albums, isMobile
 }) {
   const classes = useStyles();
 
@@ -20,10 +20,8 @@ function AlbumList({
     getAlbums(user.jwt);
   }, []);
 
-
-
   return (
-    <Grid justify="center" container spacing={3}>
+    <Grid justify={isMobile ? "center" : undefined} container spacing={isMobile ? 1 : 3}>
       {
         albums.fetched.map((album, index) => {
           return (<Grid item key={`$album-grid-item-${album.id}`} >

@@ -12,6 +12,16 @@ export default makeStyles((theme) => ({
     left: 0,
     zIndex: 9999,
   },
+  rootIsMobile: {
+    display: 'block',
+    backgroundColor: '#282828',
+    width: '100%',
+    position: 'fixed',
+    padding: 0,
+    bottom: 0,
+    left: 0,
+    zIndex: 9999,
+  },
   content: {
     display: 'flex',
     justifyContent: 'space-between'
@@ -57,9 +67,19 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center'
   },
+  infoMobile: {
+    width: '50%',
+    padding: '10px',
+    display: 'flex',
+    alignItems: 'center'
+  },
   infoCover: {
     width: theme.spacing(7),
     height: theme.spacing(7),
+  },
+  infoCoverMobile: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
   },
   infoText: {
     marginLeft: '1em',
