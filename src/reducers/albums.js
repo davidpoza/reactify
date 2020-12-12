@@ -1,9 +1,10 @@
-import { getAlbums } from '../actions/albums';
+import { getAlbums, getAlbum } from '../actions/albums';
 
 const initialState = {
   isLoading: false,
   error: false,
-  fetched: [],
+  albumsFetched: [],
+  albumFetched: undefined,
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,21 +13,42 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        fetched: [],
+        albumsFetched: [],
         error: false
       };
     case String(getAlbums.fulfilled):
       return {
         ...state,
         isLoading: false,
-        fetched: action.payload,
+        albumsFetched: action.payload,
         error: false
       };
       case String(getAlbums.rejected):
     return {
       ...state,
       isLoading: false,
-      fetched: [],
+      albumsFetched: [],
+      error: true
+    };
+    case String(getAlbum.pending):
+      return {
+        ...state,
+        isLoading: true,
+        albumFetched: undefined,
+        error: false
+      };
+    case String(getAlbum.fulfilled):
+      return {
+        ...state,
+        isLoading: false,
+        albumFetched: action.payload,
+        error: false
+      };
+      case String(getAlbum.rejected):
+    return {
+      ...state,
+      isLoading: false,
+      albumFetched: undefined,
       error: true
     };
     default:

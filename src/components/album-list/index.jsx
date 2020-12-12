@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import useStyles from './styles.js';
 import AlbumCover from '../album-cover';
 import {getAlbums} from '../../actions/albums';
+import withLoader from '../../hocs/with-loader';
 
 function AlbumList({
   user, getAlbums, albums
@@ -38,7 +39,8 @@ function AlbumList({
 const mapStateToProps = (state) => {
   return ({
     user: state.user.current,
-    albums: state.albums
+    albums: state.albums,
+    loading: state.albums.isLoading,
   });
 }
 
@@ -48,4 +50,4 @@ const mapDispatchToProps = (dispatch) => {
   });
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumList);
+export default connect(mapStateToProps, mapDispatchToProps)(withLoader(AlbumList));

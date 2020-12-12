@@ -7,25 +7,23 @@ import { IconButton } from '@material-ui/core';
 import PlayIcon from '@material-ui/icons/PlayCircleFilled';
 
 // own
-import { getAlbum, getAlbumSongs } from '../../api-client/album';
 import SongsList from '../songs-list';
 import useStyles from './styles.js'
 import Config from '../../utils/config';
 import { makeToolbarTransparent } from '../../actions/ui';
 import { replaceQueue, play , setReload, pause } from '../../actions/player';
 import { logAlbum } from '../../actions/history';
-import { secondsToLongString, transformSongs } from  '../../utils/utilities';
-
+import { secondsToLongString } from  '../../utils/utilities';
+import { getAlbum } from '../../actions/albums';
+import withLoader from '../../hocs/with-loader';
 
 function AlbumView({
-   user, makeToolbarTransparent, replaceQueue, play, setReload, pause, logAlbum
+   user, makeToolbarTransparent, replaceQueue, play, setReload, pause, logAlbum, getAlbum, album,
 }) {
   const color1 = 'blue';
   const color2 = 'pink';
   const classes = useStyles();
   const { id } = useParams();
-  const [ album, setAlbum ] = useState();
-  const [ songs, setSongs ] = useState([]);
 
   function calculateTotalTime(arrSongs = []) {
     const totalSeconds = arrSongs
@@ -35,28 +33,20 @@ function AlbumView({
   }
 
   function handleOnClickPlay() {
-    replaceQueue(songs);
+    replaceQueue(album.songs);
     setReload(true);
   }
 
   const totalTime = useMemo(() => {
-    return calculateTotalTime(songs);
-  }, [songs])
+    if (!album) {
+      return 0;
+    }
+    return calculateTotalTime(album.songs);
+  }, [album])
 
   useEffect(() => {
     makeToolbarTransparent();
-    async function loadContent() {
-      const albumData = await getAlbum({ token: user.jwt, albumId: id });
-      const albumObj = { name: albumData.name, artist: albumData.artists[0].name, cover: albumData.cover.url };
-      logAlbum(albumData);
-      setAlbum(albumData);
-      setSongs(
-        transformSongs(
-          await getAlbumSongs({ token: user.jwt, albumId: id }), albumObj
-        )
-      );
-    }
-    loadContent();
+    getAlbum(user.jwt, id);
   }, []);
 
   if (!album ) {
@@ -70,18 +60,21 @@ function AlbumView({
       <div className={classes.dataBlock}>
         <h3 className={classes.data}>ALBUM</h3>
         <h1 className={classes.title}>{album.name}</h1>
-        <h2 className={classes.data}>{album.artists[0].name} - {album.year} - {songs.length} canciones - {totalTime}</h2>
+        <h2 className={classes.data}>{album.artists[0].name} - {album.year} - {album.songs.length} canciones - {totalTime}</h2>
       </div>
     </div>
     <IconButton title="Play album" onClick={handleOnClickPlay}>
       <PlayIcon className={classes.playIcon} />
     </IconButton>
-    <SongsList songs={songs} heightOffset={600} />
+    <SongsList songs={album.songs} heightOffset={600} />
   </div>);
 }
+
 const mapStateToProps = (state) => {
   return {
     user: state.user.current,
+    album: state.albums.albumFetched,
+    loading: state.albums.isLoading
   }
 }
 
@@ -93,7 +86,8 @@ const mapDispatchToProps = (dispatch) => {
     pause: () => dispatch(pause()),
     setReload: (val) => dispatch(setReload(val)),
     logAlbum: (obj) => dispatch(logAlbum(obj)),
+    getAlbum: (token, albumId) => dispatch(getAlbum(token, albumId))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumView);
+export default connect(mapStateToProps, mapDispatchToProps)(withLoader(AlbumView));
