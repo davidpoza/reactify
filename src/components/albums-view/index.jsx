@@ -2,15 +2,15 @@ import React from 'react';
 
 // own
 import AlbumList from '../album-list';
-import useStyles from './styles.js';
+import withViewStyles from '../../hocs/with-view-styles'
 
-function AlbumsView() {
-  const classes = useStyles();
+function AlbumsView({ viewClasses }) {
+
   return (
-    <div className={classes.root}>
+    <div className={viewClasses}>
       <AlbumList/>
     </div>
   );
 }
 
-export default AlbumsView;
+export default withViewStyles(AlbumsView);

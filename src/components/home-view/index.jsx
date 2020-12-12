@@ -2,20 +2,18 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 // own
-import useStyles from './styles.js';
 import LastSongs from '../last-songs';
 import LastAlbums from '../last-albums';
 import { makeToolbarOpaque } from '../../actions/ui';
+import withViewStyles from '../../hocs/with-view-styles';
 
-function HomeView({ makeToolbarOpaque }) {
-
-  const classes = useStyles();
+function HomeView({ makeToolbarOpaque, viewClasses }) {
 
   useEffect(() => {
     makeToolbarOpaque();
   }, []);
 
-  return (<div className={classes.root}>
+  return (<div className={viewClasses}>
     <LastSongs />
     <LastAlbums />
     </div>
@@ -28,4 +26,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(() => ({}), mapDispatchToProps)(HomeView);
+export default connect(() => ({}), mapDispatchToProps)(withViewStyles(HomeView));

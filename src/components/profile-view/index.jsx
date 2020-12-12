@@ -8,14 +8,15 @@ import Typography from '@material-ui/core/Typography';
 
 // own
 import useStyles from './styles';
+import withViewStyles from '../../hocs/with-view-styles';
 
 function ProfileView({
-  user
+  user, viewClasses
 }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={viewClasses}>
       <h1>My profile</h1>
       <Grid container direction="column" justify="center">
       <Grid item xs={12} lg={8}>
@@ -43,4 +44,4 @@ const mapStateToProps = (state) => {
   });
 }
 
-export default connect(mapStateToProps)(ProfileView);
+export default connect(mapStateToProps)(withViewStyles(ProfileView));

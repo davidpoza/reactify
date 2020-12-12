@@ -18,7 +18,7 @@ import { getAlbum } from '../../actions/albums';
 import withLoader from '../../hocs/with-loader';
 
 function AlbumView({
-   user, makeToolbarTransparent, replaceQueue, play, setReload, pause, logAlbum, getAlbum, album,
+   user, makeToolbarTransparent, replaceQueue, play, setReload, pause, logAlbum, getAlbum, album, viewClasses,
 }) {
   const color1 = 'blue';
   const color2 = 'pink';

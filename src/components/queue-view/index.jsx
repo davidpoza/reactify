@@ -6,13 +6,14 @@ import Button from '@material-ui/core/Button';
 import useStyles from './styles';
 import SongsList from '../songs-list';
 import {clearQueue} from '../../actions/player';
+import withViewStyles from '../../hocs/with-view-styles';
 
 function QueueView({
-  playerState, clearQueue
+  playerState, clearQueue, viewClasses
 }) {
   const classes = useStyles();
 
-  return (<div className={classes.root}>
+  return (<div className={viewClasses}>
     <div className={classes.header}>
       <h1>Queue</h1>
       {
@@ -45,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(QueueView);
+export default connect(mapStateToProps, mapDispatchToProps)(withViewStyles(QueueView));
