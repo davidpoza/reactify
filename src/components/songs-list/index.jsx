@@ -10,7 +10,7 @@ import SongListHeader from './_children/header';
 import useStyles from './styles';
 
 
-function SongsList({ songs, variant, forcedHeight, heightOffset = 0}) {
+function SongsList({ songs, variant, heightOffset = 0}) {
   const classes = useStyles();
 
   function ListItemWithVariant(props) {
@@ -26,7 +26,7 @@ function SongsList({ songs, variant, forcedHeight, heightOffset = 0}) {
             ({ height, width}) => (
               <>
                 <FixedSizeList
-                  width={width} height={forcedHeight || (height-heightOffset)} itemSize={60} itemCount={songs.length} itemData={songs}>
+                  width={width} height={(height-heightOffset)} itemSize={60} itemCount={songs.length} itemData={songs}>
                   {
                     ListItemWithVariant
                   }
@@ -41,7 +41,6 @@ function SongsList({ songs, variant, forcedHeight, heightOffset = 0}) {
 }
 
 SongsList.propType = {
-  heightOffset: PropType.number,
   forcedHeight: PropType.number,
   variant: PropType.string,
   songs: PropType.arrayOf(

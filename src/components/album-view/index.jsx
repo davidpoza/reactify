@@ -63,10 +63,12 @@ function AlbumView({
         <h2 className={classes.data}>{album.artists[0].name} - {album.year} - {album.songs.length} canciones - {totalTime}</h2>
       </div>
     </div>
-    <IconButton title="Play album" onClick={handleOnClickPlay}>
-      <PlayIcon className={classes.playIcon} />
-    </IconButton>
-    <SongsList songs={album.songs} heightOffset={600} />
+    <div>
+      <IconButton title="Play album" onClick={handleOnClickPlay}>
+        <PlayIcon className={classes.playIcon} />
+      </IconButton>
+    </div>
+    <SongsList songs={album.songs} heightOffset={90} />
   </div>);
 }
 
