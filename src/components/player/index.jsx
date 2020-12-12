@@ -21,6 +21,7 @@ import {
 import { logSong } from '../../actions/history';
 import TimeBar from './_children/time-bar';
 import VolumeControl from './_children/volume-control';
+import PlayerInfo from './_children/info';
 
 
 function Player({
@@ -151,9 +152,7 @@ function Player({
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <div className={classes.info}>
-          info
-        </div>
+        <PlayerInfo />
         <div className={classes.controls}>
           <div className={classes.buttons}>
             <IconButton aria-label="previous" >

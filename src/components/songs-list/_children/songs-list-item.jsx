@@ -78,7 +78,7 @@ function SongListItem({
         <ListItemAvatar>
           <Avatar
             variant="square"
-            alt={`Carátula del album ${item.album}`}
+            alt={`album cover for ${item.album}`}
             src={`${Config.API_HOST}${item.cover}`}
           />
         </ListItemAvatar>

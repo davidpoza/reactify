@@ -54,6 +54,22 @@ export default makeStyles((theme) => ({
   info: {
     width: '25%',
     padding: '10px',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  infoCover: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+  infoText: {
+    marginLeft: '1em',
+    '& > p': {
+      margin: 0,
+    },
+    '& > :nth-child(2)': {
+      fontSize: '0.8em',
+      color: '#b3b3b3',
+    }
   },
   extra: {
     display: 'flex',
@@ -72,6 +88,6 @@ export default makeStyles((theme) => ({
   },
   extraButton: {
     padding: 0
-  }
+  },
 
 }));
