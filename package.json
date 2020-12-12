@@ -17,7 +17,8 @@
     "react-window": "^1.8.6",
     "redux": "^4.0.5",
     "redux-promise-middleware": "^6.1.2",
-    "redux-promise-middleware-actions": "^3.0.1"
+    "redux-promise-middleware-actions": "^3.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "npm-run-all --parallel client server",

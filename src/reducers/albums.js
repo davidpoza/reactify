@@ -1,4 +1,4 @@
-import { getAlbums, getAlbum } from '../actions/albums';
+import { getAlbums, _getAlbum } from '../actions/albums';
 
 const initialState = {
   isLoading: false,
@@ -30,21 +30,22 @@ const reducer = (state = initialState, action) => {
       albumsFetched: [],
       error: true
     };
-    case String(getAlbum.pending):
+    case String(_getAlbum.pending):
       return {
         ...state,
         isLoading: true,
         albumFetched: undefined,
         error: false
       };
-    case String(getAlbum.fulfilled):
+    case String(_getAlbum.fulfilled):
+      console.log("action", action)
       return {
         ...state,
         isLoading: false,
         albumFetched: action.payload,
         error: false
       };
-      case String(getAlbum.rejected):
+      case String(_getAlbum.rejected):
     return {
       ...state,
       isLoading: false,

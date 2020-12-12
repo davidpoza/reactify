@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import promise from 'redux-promise-middleware';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import StateLoader from './utils/state-loader';
@@ -14,7 +15,7 @@ import history from './reducers/history';
 const stateLoader = new StateLoader();
 
 const enhancer = composeWithDevTools(
-  applyMiddleware(promise)
+  applyMiddleware(promise, thunk)
 );
 
 const store = createStore(
