@@ -9,6 +9,7 @@ import useStyles from './styles.js';
 import AlbumCover from '../album-cover';
 import {getAlbums} from '../../actions/albums';
 import withLoader from '../../hocs/with-loader';
+import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumList({
   user, getAlbums, albums
@@ -22,7 +23,7 @@ function AlbumList({
 
 
   return (
-    <Grid container spacing={3}>
+    <Grid justify="center" container spacing={3}>
       {
         albums.fetched.map((album, index) => {
           return (<Grid item key={`$album-grid-item-${album.id}`} >
@@ -50,4 +51,4 @@ const mapDispatchToProps = (dispatch) => {
   });
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withLoader(AlbumList));
+export default connect(mapStateToProps, mapDispatchToProps)(withLoader(withIsMobile(AlbumList)));
