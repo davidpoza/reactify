@@ -1,4 +1,5 @@
-import { getAlbums, _getAlbum } from '../actions/albums';
+import { searchAlbums } from '../actions/downloader';
+import types from '../actions/types';
 
 const initialState = {
   isLoading: false,
@@ -9,49 +10,32 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case String(getAlbums.pending):
+    case String(searchAlbums.pending):
       return {
         ...state,
         isLoading: true,
         albumsFetched: [],
         error: false
       };
-    case String(getAlbums.fulfilled):
+    case String(searchAlbums.fulfilled):
       return {
         ...state,
         isLoading: false,
         albumsFetched: action.payload,
         error: false
       };
-    case String(getAlbums.rejected):
+    case String(searchAlbums.rejected):
       return {
         ...state,
         isLoading: false,
         albumsFetched: [],
         error: true
       };
-    case String(_getAlbum.pending):
+    case types.DOWNLOADER_CLEAN_RESULTS:
       return {
         ...state,
-        isLoading: true,
-        albumFetched: undefined,
-        error: false
-      };
-    case String(_getAlbum.fulfilled):
-      console.log("action", action)
-      return {
-        ...state,
-        isLoading: false,
-        albumFetched: action.payload,
-        error: false
-      };
-      case String(_getAlbum.rejected):
-    return {
-      ...state,
-      isLoading: false,
-      albumFetched: undefined,
-      error: true
-    };
+        albumsFetched: [],
+      }
     default:
       return state;
   }

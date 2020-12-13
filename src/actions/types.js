@@ -20,6 +20,9 @@ const actions = [
   // history
   'LOG_SONG',
   'LOG_ALBUM',
+
+  // downloader
+  'DOWNLOADER_CLEAN_RESULTS',
 ];
 
 const actionTypes = {};

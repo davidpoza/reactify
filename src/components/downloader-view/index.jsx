@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import {connect} from 'react-redux';
 
 // material ui
 import TextField from '@material-ui/core/TextField';
@@ -7,15 +8,25 @@ import SearchIcon from '@material-ui/icons/Search';
 
 // own
 import useStyles from './styles';
-import * as apiDownloader from '../../api-client/downloader';
 import AlbumList from '../album-list';
 import withViewStyles from '../../hocs/with-view-styles'
 import withIsMobile from '../../hocs/with-is-mobile';
+import withLoader from '../../hocs/with-loader';
+import { searchAlbums, cleanResults } from '../../actions/downloader';
 
-function DownloaderView({viewClasses, isMobile }) {
+function DownloaderView({
+  viewClasses, isMobile, searchAlbums, albums, cleanResults
+}) {
   const classes = useStyles({ isMobile });
   const [query, setQuery] = useState('');
-  const [albums, setAlbums] = useState([]);
+
+  // clean results before close site
+  useEffect(() => {
+  window.addEventListener('beforeunload', cleanResults());
+  return () => {
+    window.removeEventListener('beforeunload', cleanResults());
+  }
+  }, []);
 
   function handleOnChange(e) {
     setQuery(e.target.value)
@@ -23,8 +34,11 @@ function DownloaderView({viewClasses, isMobile }) {
 
   async function handleOnSubmit(e) {
     e.preventDefault();
-    const result = await apiDownloader.getResults({ query });
-    setAlbums(transformAlbums(result))
+    searchAlbums(query);
+  }
+
+  function handleDownload() {
+
   }
 
   function transformAlbums(albums) {
@@ -66,9 +80,23 @@ function DownloaderView({viewClasses, isMobile }) {
 
          />
       </form>
-      <AlbumList albumsArray={albums} absoluteUrls={true} />
+      <AlbumList albumsArray={transformAlbums(albums)} absoluteUrls={true} />
     </div>
   )
 }
 
-export default withViewStyles(withIsMobile(DownloaderView));
+const mapStateToProps = (state) => {
+  return ({
+    albums: state.downloader.albumsFetched,
+    loading: state.downloader.isLoading,
+  });
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    searchAlbums: (query) => dispatch(searchAlbums(query)),
+    cleanResults: () => dispatch(cleanResults()),
+  });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withViewStyles(withIsMobile(withLoader(DownloaderView))));
