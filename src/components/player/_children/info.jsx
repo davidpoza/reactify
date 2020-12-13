@@ -15,9 +15,9 @@ function PlayerInfo({
   const classes = useStyles();
   const {name, artist, cover, album} = playerState.queue[0];
   return (
-    <div className={isMobile ? classes.infoMobile : classes.info}>
+    <div className={classes.info}>
       <Avatar
-          className={isMobile ? classes.infoCoverMobile : classes.infoCover}
+          className={classes.infoCover}
           variant="square"
           alt={`album cover for ${album}`}
           src={`${Config.API_HOST}${cover}`}

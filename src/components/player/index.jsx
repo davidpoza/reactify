@@ -33,7 +33,7 @@ function Player({
   const [volume, setVolume] = useState(0.5);
   const [canPlay, setCanPlay] = useState(false);
   const [interval, saveInterval] = useState(null);
-  const classes = useStyles();
+  const classes = useStyles({ isMobile });
   const player = useRef();
 
  // pause song on page refresh
@@ -151,7 +151,7 @@ function Player({
   }
 
   return (
-    <div className={isMobile ? classes.rootIsMobile : classes.root}>
+    <div className={classes.root}>
       <div className={classes.content}>
         <PlayerInfo isMobile={isMobile} />
         <div className={classes.controls}>

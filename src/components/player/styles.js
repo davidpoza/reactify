@@ -7,17 +7,7 @@ export default makeStyles((theme) => ({
     backgroundColor: '#282828',
     width: '100%',
     position: 'fixed',
-    padding: '0.5rem',
-    bottom: 0,
-    left: 0,
-    zIndex: 9999,
-  },
-  rootIsMobile: {
-    display: 'block',
-    backgroundColor: '#282828',
-    width: '100%',
-    position: 'fixed',
-    padding: 0,
+    padding: props => props.isMobile ? 0 : '0.5rem',
     bottom: 0,
     left: 0,
     zIndex: 9999,
@@ -62,24 +52,14 @@ export default makeStyles((theme) => ({
     color: '#b3b3b3',
   },
   info: {
-    width: '25%',
-    padding: '10px',
-    display: 'flex',
-    alignItems: 'center'
-  },
-  infoMobile: {
-    width: '50%',
+    width: props => props.isMobile ? '50%' : '25%',
     padding: '10px',
     display: 'flex',
     alignItems: 'center'
   },
   infoCover: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-  },
-  infoCoverMobile: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
+    width: props => props.isMobile ? theme.spacing(4) : theme.spacing(7),
+    height: props => props.isMobile ? theme.spacing(4) : theme.spacing(7),
   },
   infoText: {
     marginLeft: '1em',
