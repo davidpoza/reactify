@@ -64,10 +64,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return ({
-    playerState: state.player
-  })
-}
-
 export default App;

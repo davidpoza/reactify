@@ -9,7 +9,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import PlayArrow from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
 
 // own
 import useStyles from '../styles.js';
