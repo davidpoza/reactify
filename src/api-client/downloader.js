@@ -49,3 +49,25 @@ export async function triggerDownload({
   }
 };
 
+export async function getAlbumSongs({
+  albumId
+}) {
+  try {
+    const res = await fetch(`${config.API_DOWNLOADER_HOST}/search`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify ({
+        type: 'album_track',
+        query: albumId,
+      })
+    });
+    return await res.json();
+  } catch {
+    return -1
+  }
+};
+
+
