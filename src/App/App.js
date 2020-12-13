@@ -13,6 +13,7 @@ import store from '../store';
 import theme from '../utils/theme';
 import HomeView from '../components/home-view';
 import AlbumView from '../components/album-view';
+import AlbumPreviewView from '../components/album-preview-view';
 import AlbumsView from '../components/albums-view';
 import QueueView from '../components/queue-view';
 import ProfileView from '../components/profile-view';
@@ -43,6 +44,7 @@ class App extends Component {
                   <PrivateRoute path="/search" exact component={Search}/>
                   <PrivateRoute path="/albums" exact component={AlbumsView}/>
                   <PrivateRoute path="/album/:id" exact component={AlbumView}/>
+                  <PrivateRoute path="/album-preview" exact component={AlbumPreviewView}/>
                   <PrivateRoute path="/playlists" exact component={Playlists}/>
                   <PrivateRoute path="/downloader" exact component={DownloaderView}/>
                   <PrivateRoute path="/queue" exact component={QueueView}/>

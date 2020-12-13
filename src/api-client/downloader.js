@@ -61,7 +61,7 @@ export async function getAlbumSongs({
       },
       body: JSON.stringify ({
         type: 'album_track',
-        query: albumId,
+        query: `${albumId}`,
       })
     });
     return await res.json();

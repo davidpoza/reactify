@@ -25,6 +25,11 @@ function AlbumView({
   const classes = useStyles();
   const { id } = useParams();
 
+  useEffect(() => {
+    makeToolbarTransparent();
+    getAlbum(user.jwt, id);
+  }, []);
+
   function calculateTotalTime(arrSongs = []) {
     const totalSeconds = arrSongs
       .map((e) => (e.seconds))
@@ -44,10 +49,6 @@ function AlbumView({
     return calculateTotalTime(album.songs);
   }, [album])
 
-  useEffect(() => {
-    makeToolbarTransparent();
-    getAlbum(user.jwt, id);
-  }, []);
 
   if (!album ) {
     return null;

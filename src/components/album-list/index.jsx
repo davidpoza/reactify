@@ -13,7 +13,7 @@ import withLoader from '../../hocs/with-loader';
 import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumList({
-  user, getAlbums, albums, isMobile, albumsArray, absoluteUrls
+  user, getAlbums, albums, isMobile, albumsArray, absoluteUrls, disablePlay
 }) {
   const classes = useStyles();
 
@@ -26,6 +26,7 @@ function AlbumList({
   const render = (album, index) => {
     return (<Grid item key={`$album-grid-item-${album.id}`} >
       <AlbumCover
+        disablePlay={disablePlay}
         absoluteUrls={absoluteUrls}
         key={album.id}
         id={album.id}
@@ -63,6 +64,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 AlbumList.propTypes = {
+  disablePlay: PropType.bool,
   absoluteUrls: PropType.bool,
   albumsArray: PropType.arrayOf(
     PropType.shape({

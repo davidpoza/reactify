@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropType from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -10,22 +10,26 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import Fade from '@material-ui/core/Fade';
+import { useHistory } from "react-router-dom";
 
 // material ui icons
 import PlayIcon from '@material-ui/icons/PlayCircleFilledWhite';
+import InfoIcon from '@material-ui/icons/Info';
 
 // own
 import useStyles from './styles';
 import { replaceQueue, setReload } from '../../actions/player';
+import { setAlbumPreview } from '../../actions/downloader';
 import { getAlbumSongs } from '../../api-client/album';
 import { transformSongs } from '../../utils/utilities';
 import Config from '../../utils/config';
 import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumCover({
-  user, id, cover, name, artist, link, replaceQueue, setReload, absoluteUrls, isMobile
+  user, id, cover, name, artist, link, replaceQueue, setReload, absoluteUrls, isMobile, disablePlay, setAlbumPreview,
 }) {
   const classes = useStyles({ isMobile });
+  const history = useHistory();
   const [display, setDisplay] = useState(false);
 
   function onMouseEnterHandler() {
@@ -46,9 +50,19 @@ function AlbumCover({
     setReload(true);
   }
 
+  function handleOnClickLoadPreview(e) {
+    setAlbumPreview({
+      id,
+      cover,
+      name,
+      artist
+    });
+    history.push("/album-preview");
+  }
+
   return (<Card className={classes.root}>
     <CardActionArea
-      component={Link} to={`/album/${id}`}
+      component={disablePlay ? undefined : Link} to={ disablePlay ? undefined : `/album/${id}`}
       className={classes.actionArea}
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
@@ -60,7 +74,11 @@ function AlbumCover({
         image={ absoluteUrls ? cover : `${Config.API_HOST}${cover}` }
       />
       <Fade in={display} timeout={500}>
-        <PlayIcon color="primary" className={classes.icon} onClick={handleOnClickPlay} />
+        {
+          disablePlay
+            ? <InfoIcon color="primary" className={classes.icon} onClick={handleOnClickLoadPreview} />
+            : <PlayIcon color="primary" className={classes.icon} onClick={handleOnClickPlay} />
+        }
       </Fade>
       <CardContent className={classes.content}>
         <Typography gutterBottom variant="h2" component="h2" className={classes.title}>
@@ -75,12 +93,13 @@ function AlbumCover({
 }
 
 AlbumCover.propTypes = {
-  absoluteUrls: PropTypes.bool,
-  id: PropTypes.number,
-  cover: PropTypes.string,
-  name: PropTypes.string,
-  artist: PropTypes.string,
-  link: PropTypes.string,
+  disablePlay: PropType.bool,
+  absoluteUrls: PropType.bool,
+  id: PropType.number,
+  cover: PropType.string,
+  name: PropType.string,
+  artist: PropType.string,
+  link: PropType.string,
 }
 
 const mapStateToProps = (state) => {
@@ -92,7 +111,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return ({
     replaceQueue: (newQueue) => dispatch(replaceQueue(newQueue)),
-    setReload: (val) => dispatch(setReload(val))
+    setReload: (val) => dispatch(setReload(val)),
+    setAlbumPreview: (obj) => dispatch(setAlbumPreview(obj)),
   });
 }
 

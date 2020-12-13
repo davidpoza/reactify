@@ -97,7 +97,7 @@ function SongListItem({
         variant === 'playlist' && item.dateAdded &&
         <ListItemText primary={item.dateAdded} />
       }
-      <ListItemText primary={secondsToShortString(item.seconds)} className={classes.duration} />
+      <ListItemText primary={item.seconds ? secondsToShortString(item.seconds) : 'N/A'} className={classes.duration} />
     </ListItem>
   );
 }

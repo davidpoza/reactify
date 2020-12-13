@@ -37,10 +37,6 @@ function DownloaderView({
     searchAlbums(query);
   }
 
-  function handleDownload() {
-
-  }
-
   function transformAlbums(albums) {
     return (
       albums.map(album => ({
@@ -80,7 +76,7 @@ function DownloaderView({
 
          />
       </form>
-      <AlbumList albumsArray={transformAlbums(albums)} absoluteUrls={true} />
+      <AlbumList albumsArray={transformAlbums(albums)} disablePlay={true} absoluteUrls={true} />
     </div>
   )
 }

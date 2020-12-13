@@ -23,6 +23,7 @@ const actions = [
 
   // downloader
   'DOWNLOADER_CLEAN_RESULTS',
+  'SET_ALBUM_PREVIEW',
 ];
 
 const actionTypes = {};
