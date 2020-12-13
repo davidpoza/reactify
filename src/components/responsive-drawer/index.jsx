@@ -24,12 +24,16 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 // own
 import useStyles from './styles';
 import AppBar from '../app-bar';
+import Loader from '../loader';
+
+// dynamic imports
+const Player = React.lazy(() => import('../player'));
 
 const NavLinkMui = React.forwardRef((props, ref) => (
   <NavLink {...props} activeClassName="Mui-selected" ref={ref} />
 ))
 function ResponsiveDrawer({
-  children, user, ui,
+  children, user, ui, playerState
 }) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -100,6 +104,12 @@ function ResponsiveDrawer({
       <main className={classes.content}>
         <div className={classes.toolbar} style={ui.transparentToolbar ? {display: 'none'} : { display: 'block' }} />
         {children}
+        <React.Suspense fallback={<Loader global={false} />}>
+          {
+            playerState.queue.length > 0 &&
+            <Player />
+          }
+        </React.Suspense>
       </main>
     </div>
   );
@@ -113,7 +123,8 @@ ResponsiveDrawer.propTypes = {
 const mapStateToProps = (state) => {
   return {
     user: get(state, 'user.current.user'),
-    ui: get(state, 'ui'),
+    ui: state.ui,
+    playerState: state.player
   }
 }
 

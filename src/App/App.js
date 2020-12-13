@@ -14,13 +14,11 @@ import theme from '../utils/theme';
 import HomeView from '../components/home-view';
 import AlbumView from '../components/album-view';
 import AlbumsView from '../components/albums-view';
-import Player from '../components/player';
 import QueueView from '../components/queue-view';
 import ProfileView from '../components/profile-view';
 
 // Css
 import './App.css';
-
 
 const Search = () => {
   return <p>Search</p>;
@@ -52,7 +50,6 @@ class App extends Component {
                   <PrivateRoute path="/downloader" exact component={Downloader}/>
                   <PrivateRoute path="/queue" exact component={QueueView}/>
                   <PrivateRoute path="/profile" exact component={ProfileView}/>
-                  <Player />
                 </ResponsiveDrawer>
               </Switch>
             </Router>
@@ -61,6 +58,12 @@ class App extends Component {
       </div>
     );
   }
+}
+
+const mapStateToProps = (state) => {
+  return ({
+    playerState: state.player
+  })
 }
 
 export default App;
