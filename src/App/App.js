@@ -11,16 +11,19 @@ import PrivateRoute from '../hocs/private-route';
 import ResponsiveDrawer from '../components/responsive-drawer';
 import store from '../store';
 import theme from '../utils/theme';
-import HomeView from '../components/home-view';
-import AlbumView from '../components/album-view';
-import AlbumPreviewView from '../components/album-preview-view';
-import AlbumsView from '../components/albums-view';
-import QueueView from '../components/queue-view';
-import ProfileView from '../components/profile-view';
-import DownloaderView from '../components/downloader-view';
+import Loader from '../components/loader';
 
 // Css
 import './App.css';
+
+// dynamic imports
+const HomeView = React.lazy(() => import('../components/home-view'));
+const QueueView = React.lazy(() => import('../components/queue-view'));
+const AlbumView = React.lazy(() => import('../components/album-view'));
+const AlbumPreviewView = React.lazy(() => import('../components/album-preview-view'));
+const AlbumsView = React.lazy(() => import('../components/albums-view'));
+const ProfileView = React.lazy(() => import('../components/profile-view'));
+const DownloaderView = React.lazy(() => import('../components/downloader-view'));
 
 const Search = () => {
   return <p>Search</p>;
@@ -36,22 +39,24 @@ class App extends Component {
       <div className="App">
         <Provider store={store}>
           <ThemeProvider theme={theme}>
-            <Router>
-              <Switch>
-                <Route path="/login" exact component={LoginForm} />
-                <ResponsiveDrawer>
-                  <PrivateRoute path="/" exact component={HomeView}/>
-                  <PrivateRoute path="/search" exact component={Search}/>
-                  <PrivateRoute path="/albums" exact component={AlbumsView}/>
-                  <PrivateRoute path="/album/:id" exact component={AlbumView}/>
-                  <PrivateRoute path="/album-preview" exact component={AlbumPreviewView}/>
-                  <PrivateRoute path="/playlists" exact component={Playlists}/>
-                  <PrivateRoute path="/downloader" exact component={DownloaderView}/>
-                  <PrivateRoute path="/queue" exact component={QueueView}/>
-                  <PrivateRoute path="/profile" exact component={ProfileView}/>
-                </ResponsiveDrawer>
-              </Switch>
-            </Router>
+              <Router>
+                <Switch>
+                  <Route path="/login" exact component={LoginForm} />
+                  <ResponsiveDrawer>
+                    <React.Suspense fallback={<Loader global={false} />}>
+                      <PrivateRoute path="/" exact component={HomeView}/>
+                      <PrivateRoute path="/search" exact component={Search}/>
+                      <PrivateRoute path="/albums" exact component={AlbumsView}/>
+                      <PrivateRoute path="/album/:id" exact component={AlbumView}/>
+                      <PrivateRoute path="/album-preview" exact component={AlbumPreviewView}/>
+                      <PrivateRoute path="/playlists" exact component={Playlists}/>
+                      <PrivateRoute path="/downloader" exact component={DownloaderView}/>
+                      <PrivateRoute path="/queue" exact component={QueueView}/>
+                      <PrivateRoute path="/profile" exact component={ProfileView}/>
+                    </React.Suspense>
+                  </ResponsiveDrawer>
+                </Switch>
+              </Router>
           </ThemeProvider>
         </Provider>
       </div>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import get from 'lodash.get';
 
 // material ui
 import { IconButton } from '@material-ui/core';
@@ -56,12 +57,12 @@ function AlbumView({
 
   return (<div className={classes.root}>
     <div className={classes.header} style={{ background: `linear-gradient(${color1}, ${color2})`}}>
-      <img src={`${Config.API_HOST}${album.cover.url}`} className={classes.cover}
+      <img src={`${Config.API_HOST}${get(album, 'cover.url')}`} className={classes.cover}
         alt={`Carátula del disco ${album.name}`} />
       <div className={classes.dataBlock}>
         <h3 className={classes.data}>ALBUM</h3>
         <h1 className={classes.title}>{album.name}</h1>
-        <h2 className={classes.data}>{album.artists[0].name} - {album.year} - {album.songs.length} canciones - {totalTime}</h2>
+        <h2 className={classes.data}>{get(album, 'artists[0].name')} - {album.year} - {get(album,'songs',[]).length} canciones - {totalTime}</h2>
       </div>
     </div>
     <div>

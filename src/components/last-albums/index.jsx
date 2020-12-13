@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import get from 'lodash.get';
 
 // material ui
 import Grid from '@material-ui/core/Grid';
@@ -20,7 +21,7 @@ function LastAlbums({
           history.albums.map((album, index) => {
             return (<Grid item key={`$album-grid-item-${album.id}`} >
               <AlbumCover
-                key={album.id} id={album.id} name={album.name} artist={album.artists[0].name} cover={album.cover.url}
+                key={album.id} id={album.id} name={album.name} artist={get(album, 'artists[0].name')} cover={get(album, 'cover.url')}
               />
             </Grid>);
           })

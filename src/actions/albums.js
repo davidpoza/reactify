@@ -11,7 +11,7 @@ export const getAlbums = createAsyncAction('ALBUMS', async (token) => {
 export const _getAlbum = createAsyncAction('ALBUM', async (token, albumId) => {
   console.log("lanzada")
   const albumData = await albumApi.getAlbum({token, albumId});
-  const albumObj = { name: albumData.name, artist: albumData.artists[0].name, cover: albumData.cover.url };
+  const albumObj = { name: albumData.name, artist: albumData.artists && albumData.artists[0].name, cover: albumData.cover && albumData.cover.url };
   const songs = await albumApi.getAlbumSongs({ token: token, albumId});
   albumData.songs = transformSongs(songs, albumObj);
   return albumData;
