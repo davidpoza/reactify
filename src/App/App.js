@@ -16,6 +16,7 @@ import AlbumView from '../components/album-view';
 import AlbumsView from '../components/albums-view';
 import QueueView from '../components/queue-view';
 import ProfileView from '../components/profile-view';
+import DownloaderView from '../components/downloader-view';
 
 // Css
 import './App.css';
@@ -26,10 +27,6 @@ const Search = () => {
 
 const Playlists = () => {
   return <p>Playlists</p>;
-}
-
-const Downloader = () => {
-  return <p>Downloader</p>;
 }
 
 class App extends Component {
@@ -47,7 +44,7 @@ class App extends Component {
                   <PrivateRoute path="/albums" exact component={AlbumsView}/>
                   <PrivateRoute path="/album/:id" exact component={AlbumView}/>
                   <PrivateRoute path="/playlists" exact component={Playlists}/>
-                  <PrivateRoute path="/downloader" exact component={Downloader}/>
+                  <PrivateRoute path="/downloader" exact component={DownloaderView}/>
                   <PrivateRoute path="/queue" exact component={QueueView}/>
                   <PrivateRoute path="/profile" exact component={ProfileView}/>
                 </ResponsiveDrawer>

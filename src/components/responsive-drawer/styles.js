@@ -24,8 +24,10 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     height: '98vh',
     padding: 0,
+    backgroundColor: '#121212'
   },
   icon: {
     color: '#fff',
+
   }
 }));

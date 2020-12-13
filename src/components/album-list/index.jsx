@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
+import PropType from 'prop-types';
 
 // material ui
 import Grid from '@material-ui/core/Grid';
@@ -12,24 +13,36 @@ import withLoader from '../../hocs/with-loader';
 import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumList({
-  user, getAlbums, albums, isMobile
+  user, getAlbums, albums, isMobile, albumsArray, absoluteUrls
 }) {
   const classes = useStyles();
 
   useEffect(() => {
-    getAlbums(user.jwt);
+    if (!albumsArray) {
+      getAlbums(user.jwt);
+    }
   }, []);
 
+  const render = (album, index) => {
+    return (<Grid item key={`$album-grid-item-${album.id}`} >
+      <AlbumCover
+        absoluteUrls={absoluteUrls}
+        key={album.id}
+        id={album.id}
+        name={album.name}
+        artist={album.artists[0].name}
+        cover={album.cover.url}
+      />
+    </Grid>);
+  };
+
   return (
-    <Grid justify={isMobile ? "center" : undefined} container spacing={isMobile ? 1 : 3}>
+    <Grid
+      className={classes.grid} justify={isMobile ? "center" : undefined} container spacing={isMobile ? 1 : 3}>
       {
-        albums.fetched.map((album, index) => {
-          return (<Grid item key={`$album-grid-item-${album.id}`} >
-            <AlbumCover
-              key={album.id} id={album.id} name={album.name} artist={album.artists[0].name} cover={album.cover.url}
-            />
-          </Grid>);
-        })
+        albumsArray
+        ? albumsArray.map(render)
+        : albums.fetched.map(render)
       }
     </Grid>
   );
@@ -47,6 +60,20 @@ const mapDispatchToProps = (dispatch) => {
   return ({
     getAlbums: (token, albumId) => dispatch(getAlbums(token, albumId)),
   });
+}
+
+AlbumList.propTypes = {
+  absoluteUrls: PropType.bool,
+  albumsArray: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.number,
+      artists: PropType.array,
+      name: PropType.string,
+      cover:PropType.shape({
+        url: PropType.string,
+      }),
+    })
+  ),
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withLoader(withIsMobile(AlbumList)));

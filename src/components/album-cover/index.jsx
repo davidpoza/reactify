@@ -20,11 +20,12 @@ import { replaceQueue, setReload } from '../../actions/player';
 import { getAlbumSongs } from '../../api-client/album';
 import { transformSongs } from '../../utils/utilities';
 import Config from '../../utils/config';
+import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumCover({
-  user, id, cover, name, artist, link, replaceQueue, setReload
+  user, id, cover, name, artist, link, replaceQueue, setReload, absoluteUrls, isMobile
 }) {
-  const classes = useStyles();
+  const classes = useStyles({ isMobile });
   const [display, setDisplay] = useState(false);
 
   function onMouseEnterHandler() {
@@ -56,7 +57,7 @@ function AlbumCover({
         component="img"
         alt={`Cover del álbum ${name} de ${artist}`}
         className={classes.media}
-        image={`${Config.API_HOST}${cover}`}
+        image={ absoluteUrls ? cover : `${Config.API_HOST}${cover}` }
       />
       <Fade in={display} timeout={500}>
         <PlayIcon color="primary" className={classes.icon} onClick={handleOnClickPlay} />
@@ -74,6 +75,7 @@ function AlbumCover({
 }
 
 AlbumCover.propTypes = {
+  absoluteUrls: PropTypes.bool,
   id: PropTypes.number,
   cover: PropTypes.string,
   name: PropTypes.string,
@@ -94,4 +96,4 @@ const mapDispatchToProps = (dispatch) => {
   });
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumCover);
+export default connect(mapStateToProps, mapDispatchToProps)(withIsMobile(AlbumCover));
