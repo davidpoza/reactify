@@ -8,7 +8,9 @@ const withViewStyles = (Component) => ({ isMobile, ...props }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       padding: isMobile ? 0 : '2em',
-      height: '80%'
+      height: '80%',
+      display: 'flex',
+      flexDirection: 'column'
     },
   }));
   const classes = useStyles();
