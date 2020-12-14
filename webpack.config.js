@@ -3,9 +3,27 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+      'redux-promise-middleware',
+      'redux-promise-middleware-actions',
+      'dayjs',
+      'react-window',
+      'react-virtualized-auto-sizer',
+      'redux-thunk',
+      'lodash.get',
+      '@material-ui/core',
+      '@material-ui/icons'
+    ]
+  },
   output: {
-    filename: 'main.js',
+    filename: '[name].[chunkhash:8].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
@@ -39,5 +57,18 @@ module.exports = {
   devServer: {
     contentBase: './build',
     historyApiFallback: true
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: 'vendor',
+          name: 'vendor',
+          enforce: true,
+          chunks: 'all'
+        }
+      }
+    }
   }
 }
