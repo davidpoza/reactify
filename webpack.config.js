@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -53,6 +54,12 @@ module.exports = {
     new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
       PUBLIC_URL: 'http://localhost:8080',
     }),
+    new CopyPlugin({
+      patterns: [
+        { from: "./public/manifest.json", to: "./manifest.json" },
+        { from: "./public/favicon.ico", to: "./favicon.ico" },
+      ],
+    })
   ],
   devServer: {
     contentBase: './build',
