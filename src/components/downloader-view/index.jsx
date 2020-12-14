@@ -38,6 +38,9 @@ function DownloaderView({
   }
 
   function transformAlbums(albums) {
+    if (!albums) {
+      return [];
+    }
     return (
       albums.map(album => ({
         id: album.album_id,
