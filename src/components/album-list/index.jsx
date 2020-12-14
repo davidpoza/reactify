@@ -36,14 +36,14 @@ function AlbumList({
       />
     </Grid>);
   };
-
+console.log("-->", albumsArray)
   return (
     <Grid
       className={classes.grid} justify={isMobile ? "center" : undefined} container spacing={isMobile ? 1 : 3}>
       {
         albumsArray
         ? albumsArray.map(render)
-        : albums.fetched.map(render)
+        : albums.albumsFetched.map(render)
       }
     </Grid>
   );
