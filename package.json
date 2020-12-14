@@ -3,30 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
     "dayjs": "^1.9.7",
+    "html-webpack-plugin": "^4.5.0",
     "lodash.get": "^4.4.2",
     "react": "^16.7.0",
+    "react-dev-utils": "^11.0.1",
     "react-dom": "^16.7.0",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "2.1.3",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.6",
     "redux": "^4.0.5",
     "redux-promise-middleware": "^6.1.2",
     "redux-promise-middleware-actions": "^3.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
   },
   "scripts": {
-    "start": "npm-run-all --parallel client server",
-    "client": "react-scripts start",
-    "server": "json-server --watch server/data.json --static server/static --port 3001",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "webpack serve --mode=development",
+    "build": "webpack --mode=production"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,12 +43,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/polyfill": "^7.12.1",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "jest-enzyme": "^7.0.1",
     "json-server": "^0.14.2",
     "npm-run-all": "^4.1.5",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "webpack-dev-server": "^3.11.0"
   },
   "proxy": "http://localhost:3001"
 }
