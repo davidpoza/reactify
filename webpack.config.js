@@ -58,6 +58,12 @@ module.exports = {
       patterns: [
         { from: "./public/manifest.json", to: "./manifest.json" },
         { from: "./public/favicon.ico", to: "./favicon.ico" },
+        { from: "./public/android", to: "./android" },
+        { from: "./public/chrome", to: "./chrome" },
+        { from: "./public/firefox", to: "./firefox" },
+        { from: "./public/windows", to: "./windows" },
+        { from: "./public/windows10", to: "./windows10" },
+        { from: "./public/msteams", to: "./msteams" },
       ],
     })
   ],
