@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -21,10 +22,10 @@ module.exports = {
       'lodash.get',
       '@material-ui/core',
       '@material-ui/icons'
-    ]
+    ],
   },
   output: {
-    filename: '[name].[chunkhash:8].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
@@ -64,7 +65,11 @@ module.exports = {
         { from: "./public/windows", to: "./windows" },
         { from: "./public/windows10", to: "./windows10" },
         { from: "./public/msteams", to: "./msteams" },
+        // { from: "./public/sw.js", to: "./sw.js" },
       ],
+    }),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: './src/sw.js',
     })
   ],
   devServer: {
