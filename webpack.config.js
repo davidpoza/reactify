@@ -53,7 +53,7 @@ module.exports = {
       filename: "./index.html"
     }),
     new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
-      PUBLIC_URL: 'http://localhost:8080',
+      PUBLIC_URL: process.env.NODE_ENV === 'production' ? 'http://localhost:8000' : 'http://localhost:8080' ,
     }),
     new CopyPlugin({
       patterns: [
