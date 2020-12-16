@@ -36,7 +36,7 @@ function AlbumList({
       />
     </Grid>);
   };
-console.log("-->", albumsArray)
+
   return (
     <Grid
       className={classes.grid} justify={isMobile ? "center" : undefined} container spacing={isMobile ? 1 : 3}>

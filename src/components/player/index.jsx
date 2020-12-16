@@ -95,7 +95,6 @@ function Player({
     playRedux();
     if (canPlay) {
       player.current.play();
-      console.log("--->", get(player, 'current.duration'))
       setLength(get(player, 'current.duration'));
       const int = setInterval(() => {
         setSecond(Math.trunc(get(player, 'current.currentTime')));

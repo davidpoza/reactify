@@ -15,17 +15,17 @@ import withLoader from '../../hocs/with-loader';
 import { searchAlbums, cleanResults } from '../../actions/downloader';
 
 function DownloaderView({
-  viewClasses, isMobile, searchAlbums, albums, cleanResults
+  viewClasses, isMobile, searchAlbums, albums, cleanResults, error,
 }) {
   const classes = useStyles({ isMobile });
   const [query, setQuery] = useState('');
 
   // clean results before close site
   useEffect(() => {
-  window.addEventListener('beforeunload', cleanResults());
-  return () => {
-    window.removeEventListener('beforeunload', cleanResults());
-  }
+    window.addEventListener('beforeunload', cleanResults);
+    return () => {
+      window.removeEventListener('beforeunload', cleanResults);
+    }
   }, []);
 
   function handleOnChange(e) {
@@ -55,6 +55,10 @@ function DownloaderView({
         ]
       }))
     );
+  }
+
+  if (error) {
+    return null;
   }
 
   return (
@@ -88,6 +92,8 @@ const mapStateToProps = (state) => {
   return ({
     albums: state.downloader.albumsFetched,
     loading: state.downloader.isLoading,
+    error: state.downloader.error,
+    errorMessage: state.downloader.errorMessage,
   });
 }
 

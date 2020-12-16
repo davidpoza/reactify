@@ -6,6 +6,7 @@ const initialState = {
   error: false,
   albumsFetched: [],
   albumFetched: undefined,
+  errorMessage: undefined,
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
         albumsFetched: [],
-        error: false
+        error: false,
+        errorMessage: undefined,
       };
     case String(searchAlbums.fulfilled):
       return {
@@ -29,12 +31,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         albumsFetched: [],
-        error: true
+        error: true,
+        errorMessage: action.payload.message,
       };
     case types.DOWNLOADER_CLEAN_RESULTS:
       return {
         ...state,
         albumsFetched: [],
+        error: false,
+        errorMessage: undefined,
       }
     case String(getAlbumSongs.pending):
       return {
@@ -44,10 +49,10 @@ const reducer = (state = initialState, action) => {
           ...state.albumFetched,
           songs: [],
         },
-        error: false
+        error: false,
+        errorMessage: undefined,
       };
     case String(getAlbumSongs.fulfilled):
-      console.log("....", action)
       return {
         ...state,
         isLoading: false,
@@ -65,7 +70,8 @@ const reducer = (state = initialState, action) => {
           ...state.albumFetched,
           songs: [],
         },
-        error: true
+        error: true,
+        errorMessage: action.payload.message,
       };
     case types.SET_ALBUM_PREVIEW:
       return {

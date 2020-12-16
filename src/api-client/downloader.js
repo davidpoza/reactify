@@ -22,7 +22,7 @@ export async function getResults({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during results fetch');
   }
 };
 
@@ -45,7 +45,7 @@ export async function triggerDownload({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during song download');
   }
 };
 
@@ -66,7 +66,7 @@ export async function getAlbumSongs({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during song list fetch');
   }
 };
 
