@@ -4,7 +4,8 @@ import types from '../actions/types';
 const initialState = {
   isLoading: false,
   current: null,
-  error: false
+  error: false,
+  errorMessage: undefined,
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +15,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
         current: null,
-        error: false
+        error: false,
+        errorMessage: undefined,
       };
     case String(getAuth.fulfilled):
       return {
@@ -27,7 +29,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        errorMessage: action.payload.message,
       };
     case types.USER_RESET_STATE:
       return initialState;

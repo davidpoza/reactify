@@ -10,10 +10,11 @@ import Typography from '@material-ui/core/Typography';
 
 // own
 import useStyles from './styles';
-import { getAuth } from '../../actions/user';
+import { getAuth, resetState } from '../../actions/user';
+import withLoader from '../../hocs/with-loader';
 
 function Login(props) {
-  const { getAuth, user, history } = props;
+  const { getAuth, user, history, cleanErrors } = props;
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +24,14 @@ function Login(props) {
       history.push("/");
     }
   }, [user]);
+
+  // clean errors before close site
+  useEffect(() => {
+    window.addEventListener('beforeunload', cleanErrors);
+    return () => {
+      window.removeEventListener('beforeunload', cleanErrors);
+    }
+  }, []);
 
   async function onFormSubmit(e) {
     e.preventDefault();
@@ -56,12 +65,15 @@ function Login(props) {
 const mapStateToProps = (state) => {
   return {
     user: state.user.current,
+    error: state.user.error,
+    errorMessage: state.user.errorMessage,
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getAuth: (email, password) => dispatch(getAuth(email, password))
+    getAuth: (email, password) => dispatch(getAuth(email, password)),
+    cleanErrors: () => dispatch(resetState()),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withLoader(Login));

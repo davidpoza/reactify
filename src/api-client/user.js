@@ -14,7 +14,7 @@ export async function login(email, password) {
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Connection error during login');
   }
 };
 
