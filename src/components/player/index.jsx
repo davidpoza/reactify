@@ -16,17 +16,17 @@ import Config from '../../utils/config';
 import useStyles from './styles';
 import { secondsToShortString } from '../../utils/utilities';
 import {
-  play as playAction, pause as pauseAction, setJumpNext, setReload, consumeFromQueue,
+  play as playAction, pause as pauseAction, setJumpNext, setReload, consumeFromQueue, clearQueue
 } from '../../actions/player';
 import { logSong } from '../../actions/history';
 import TimeBar from './_children/time-bar';
 import VolumeControl from './_children/volume-control';
 import PlayerInfo from './_children/info';
 import withIsMobile from '../../hocs/with-is-mobile';
-
+import ErrorBoundary from '../error-boundary';
 
 function Player({
-  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue, setReload, logSong, isMobile,
+  playerState, playRedux, pauseRedux, setJumpNext, consumeFromQueue, setReload, logSong, isMobile, clearQueue
 }) {
   const [length, setLength] = useState(0);
   const [second, setSecond] = useState(0);
@@ -149,71 +149,86 @@ function Player({
     return null;
   }
 
+  function resetState() {
+    setLength(0);
+    setSecond(0);
+    setVolume(0.5);
+    setCanPlay(false);
+    if (interval) {
+      clearInterval(interval);
+    }
+    saveInterval(null);
+    clearQueue();
+    setReload(false);
+  }
+
   return (
-    <div className={classes.root}>
-      <div className={classes.content}>
-        <PlayerInfo isMobile={isMobile} />
-        <div className={classes.controls}>
-          <div className={classes.buttons}>
-            <IconButton aria-label="previous" >
-              <SkipPreviousIcon className={classes.previousIcon} />
-            </IconButton>
-            { playerState.playing
-              ? <IconButton title="Pause" aria-label="pause" onClick={pauseHandler} className={classes.playBtn}>
-                  <PauseCircleOutlineIcon className={classes.playIcon} />
-                </IconButton>
-              : <IconButton title="Resume" aria-label="play" onClick={playHandler} className={classes.playBtn}>
-                  <PlayCircleOutlineIcon className={classes.playIcon} />
-                </IconButton>
-            }
-            <IconButton aria-label="next" onClick={nextHandler}>
-              <SkipNextIcon className={classes.nextIcon} />
-            </IconButton>
-          </div>
-          <div className={classes.bar}>
-            <div className={classes.currentTime}>
-              {secondsToShortString(second)}
+    <ErrorBoundary message="Error ocurrend on player" onReset={resetState}>
+      <div className={classes.root}>
+        <div className={classes.content}>
+          <PlayerInfo isMobile={isMobile} />
+          <div className={classes.controls}>
+            <div className={classes.buttons}>
+              <IconButton aria-label="previous" >
+                <SkipPreviousIcon className={classes.previousIcon} />
+              </IconButton>
+              { playerState.playing
+                ? <IconButton title="Pause" aria-label="pause" onClick={pauseHandler} className={classes.playBtn}>
+                    <PauseCircleOutlineIcon className={classes.playIcon} />
+                  </IconButton>
+                : <IconButton title="Resume" aria-label="play" onClick={playHandler} className={classes.playBtn}>
+                    <PlayCircleOutlineIcon className={classes.playIcon} />
+                  </IconButton>
+              }
+              <IconButton aria-label="next" onClick={nextHandler}>
+                <SkipNextIcon className={classes.nextIcon} />
+              </IconButton>
             </div>
-            {
-              <TimeBar
-                handler={setTime}
-                value={second * 100 / length}
-              />
-            }
-            <div className={classes.length}>
-              {secondsToShortString(length)}
+            <div className={classes.bar}>
+              <div className={classes.currentTime}>
+                {secondsToShortString(second)}
+              </div>
+              {
+                <TimeBar
+                  handler={setTime}
+                  value={second * 100 / length}
+                />
+              }
+              <div className={classes.length}>
+                {secondsToShortString(length)}
+              </div>
             </div>
           </div>
-        </div>
-        {
-          !isMobile &&
-          <div className={classes.extra}>
           {
-            <>
-              <Link to="/queue">
-                <IconButton
-                  title="See queue"
-                  aria-label="queue"
-                  className={classes.extraButton}
-                >
-                  <QueueIcon fontSize="small" className={classes.extraIcon} />
-                </IconButton>
-              </Link>
-              <VolumeControl
-                handler={setVolumeSlider}
-                value={volume}
-              />
-            </>
+            !isMobile &&
+            <div className={classes.extra}>
+            {
+              <>
+                <Link to="/queue">
+                  <IconButton
+                    title="See queue"
+                    aria-label="queue"
+                    className={classes.extraButton}
+                  >
+                    <QueueIcon fontSize="small" className={classes.extraIcon} />
+                  </IconButton>
+                </Link>
+                <VolumeControl
+                  handler={setVolumeSlider}
+                  value={volume}
+                />
+              </>
+            }
+            </div>
           }
-          </div>
-        }
+        </div>
+        <audio id="player" preload='none' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
+          <source
+            src={`${Config.API_HOST}${playerState.queue[0].audio}`} type='audio/flac'
+          />
+        </audio>
       </div>
-      <audio id="player" preload='none' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
-        <source
-          src={`${Config.API_HOST}${playerState.queue[0].audio}`} type='audio/flac'
-        />
-      </audio>
-    </div>
+    </ErrorBoundary>
   );
 }
 
@@ -231,6 +246,7 @@ const mapDispatchToProps = (dispatch) => {
     setReload: (val) => dispatch(setReload(val)),
     consumeFromQueue: () => dispatch(consumeFromQueue()),
     logSong: (obj) => dispatch(logSong(obj)),
+    clearQueue: () => dispatch(clearQueue()),
   })
 };
 

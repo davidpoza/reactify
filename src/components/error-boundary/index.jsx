@@ -8,6 +8,7 @@ class ErrorBoundary extends React.Component {
     this.state = {
       error: false
     };
+    this.onClick = this.onClick.bind(this);
   }
 
   static getDerivedStateFromError() {
@@ -16,13 +17,22 @@ class ErrorBoundary extends React.Component {
     };
   }
 
+  onClick() {
+    this.props.onReset();
+    this.setState({ error: false });
+  }
+
   render() {
     const { error } = this.state;
-    const { message, children } = this.props;
+    const { message, children, onReset } = this.props;
     if (error === true) {
       return (
         <div>
           <h1>{message}</h1>
+          {
+            onReset &&
+            <button onClick={this.onClick}>Retry</button>
+          }
         </div>
       );
     }
@@ -32,6 +42,7 @@ class ErrorBoundary extends React.Component {
 
 ErrorBoundary.propType = {
   message: PropType.string,
+  onReset: PropType.func,
 };
 
 export default ErrorBoundary;
