@@ -78,6 +78,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         albumFetched: action.album,
       }
+    case types.DOWNLOADER_CLEAN_ERRORS:
+      return {
+        ...state,
+        error: false,
+        errorMessage: undefined,
+      }
     default:
       return state;
   }

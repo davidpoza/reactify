@@ -26,3 +26,7 @@ export const setAlbumPreview = (album) => ({
 export const getAlbumPreview = () => ({
   type: types.GET_ALBUM_PREVIEW,
 });
+
+export const cleanErrors = () => ({
+  type: types.DOWNLOADER_CLEAN_ERRORS,
+});

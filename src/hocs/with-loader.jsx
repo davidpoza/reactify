@@ -6,21 +6,20 @@ import Snackbar from '@material-ui/core/Snackbar';
 // own
 import Loader from '../components/loader';
 
-const withLoader = (Component) => ({loading, error, errorMessage, ...rest}) => {
-  console.log("--->", error, errorMessage);
+const withLoader = (Component) => ({loading, error, errorMessage, cleanErrors, ...rest}) => {
   return (
     <>
       {
-        true &&
+        errorMessage &&
         <Snackbar
           style={{zIndex: 999999}}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          onClose={() => { }}
-          open={true}
-          autoHideDuration={6000}
+          onClose={() => { if (cleanErrors) cleanErrors(); }}
+          open={errorMessage}
+          autoHideDuration={3000}
           message={errorMessage}
         />
       }

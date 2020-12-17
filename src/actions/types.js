@@ -24,6 +24,7 @@ const actions = [
   // downloader
   'DOWNLOADER_CLEAN_RESULTS',
   'SET_ALBUM_PREVIEW',
+  'DOWNLOADER_CLEAN_ERRORS',
 ];
 
 const actionTypes = {};

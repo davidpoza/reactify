@@ -12,7 +12,7 @@ import AlbumList from '../album-list';
 import withViewStyles from '../../hocs/with-view-styles'
 import withIsMobile from '../../hocs/with-is-mobile';
 import withLoader from '../../hocs/with-loader';
-import { searchAlbums, cleanResults } from '../../actions/downloader';
+import { searchAlbums, cleanResults, cleanErrors } from '../../actions/downloader';
 
 function DownloaderView({
   viewClasses, isMobile, searchAlbums, albums, cleanResults, error,
@@ -101,6 +101,7 @@ const mapDispatchToProps = (dispatch) => {
   return ({
     searchAlbums: (query) => dispatch(searchAlbums(query)),
     cleanResults: () => dispatch(cleanResults()),
+    cleanErrors: () => dispatch(cleanErrors()),
   });
 }
 
