@@ -1,6 +1,6 @@
 const actions = [
   // user
-  'LOGOUT',
+  'USER_RESET_STATE',
 
   // ui
   'TRANSPARENT_TOOLBAR',
@@ -8,6 +8,7 @@ const actions = [
 
   // albums
   'ALBUMS_CLEAN_ERRORS',
+  'ALBUMS_RESET_STATE',
 
   // player
   'ADD_TO_QUEUE',
@@ -19,15 +20,18 @@ const actions = [
   'PAUSE',
   'SET_JUMP_NEXT',
   'SET_RELOAD',
+  'PLAYER_RESET_STATE',
 
   // history
   'LOG_SONG',
   'LOG_ALBUM',
+  'LOG_RESET_STATE',
 
   // downloader
   'DOWNLOADER_CLEAN_RESULTS',
   'SET_ALBUM_PREVIEW',
   'DOWNLOADER_CLEAN_ERRORS',
+  'DOWNLOADER_RESET_STATE'
 ];
 
 const actionTypes = {};

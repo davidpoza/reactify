@@ -17,3 +17,7 @@ export const logAlbum = (album) => ({
   type: types.LOG_ALBUM,
   album
 });
+
+export const resetState = () => ({
+  type: types.LOG_RESET_STATE,
+});

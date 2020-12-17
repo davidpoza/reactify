@@ -14,12 +14,16 @@ import ExitIcon from '@material-ui/icons/ExitToApp';
 import Typography from '@material-ui/core/Typography';
 
 // own
-import { doLogout } from '../../actions/user';
+import { resetState as resetUserState } from '../../actions/user';
+import { resetState as resetHistoryState } from '../../actions/history';
+import { resetState as resetAlbumsState } from '../../actions/albums';
+import { resetState as resetDownloaderState } from '../../actions/downloader';
+import { resetState as resetPlayerState } from '../../actions/player';
 import config from '../../utils/config';
 import useStyles from './styles';
 
 function MyAvatar(props) {
-  const { user, logout } = props;
+  const { user, resetUserState, resetHistoryState, resetAlbumsState, resetDownloaderState, resetPlayerState} = props;
   const classes = useStyles();
   const { url } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,7 +38,11 @@ function MyAvatar(props) {
 
   const handleLogout = () => {
     handleClose();
-    logout();
+    resetUserState();
+    resetHistoryState();
+    resetAlbumsState();
+    resetDownloaderState();
+    resetPlayerState();
   };
 
   if (url) {
@@ -81,7 +89,11 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(doLogout()),
+    resetUserState: () => dispatch(resetUserState()),
+    resetDownloaderState: () => dispatch(resetDownloaderState()),
+    resetHistoryState: () => dispatch(resetHistoryState()),
+    resetPlayerState: () => dispatch(resetPlayerState()),
+    resetAlbumsState: () => dispatch(resetAlbumsState()),
   }
 }
 

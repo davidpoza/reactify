@@ -22,6 +22,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         albums: newArray
       }
+    case types.LOG_RESET_STATE:
+      return (initialState);
     default:
       return state;
   }

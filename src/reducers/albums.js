@@ -61,6 +61,8 @@ const reducer = (state = initialState, action) => {
         error: false,
         errorMessage: undefined,
       };
+    case types.ALBUMS_RESET_STATE:
+      return (initialState);
     default:
       return state;
   }

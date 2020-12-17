@@ -30,3 +30,7 @@ export const getAlbumPreview = () => ({
 export const cleanErrors = () => ({
   type: types.DOWNLOADER_CLEAN_ERRORS,
 });
+
+export const resetState = () => ({
+  type: types.DOWNLOADER_RESET_STATE,
+});

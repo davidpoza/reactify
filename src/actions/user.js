@@ -7,6 +7,6 @@ export const getAuth = createAsyncAction('AUTH', async (email, password) => {
   return res;
 });
 
-export const doLogout = () => ({
-  type: types.LOGOUT,
+export const resetState = () => ({
+  type: types.USER_RESET_STATE,
 });

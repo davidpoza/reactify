@@ -84,6 +84,8 @@ const reducer = (state = initialState, action) => {
         error: false,
         errorMessage: undefined,
       }
+    case types.DOWNLOADER_RESET_STATE:
+      return (initialState);
     default:
       return state;
   }

@@ -64,6 +64,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         reload: action.value,
       }
+    case types.PLAYER_RESET_STATE:
+      return (initialState);
     default:
       return state;
   }

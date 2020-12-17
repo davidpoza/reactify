@@ -29,8 +29,8 @@ const reducer = (state = initialState, action) => {
         isLoading: false,
         error: true
       };
-    case types.LOGOUT:
-      return {}
+    case types.USER_RESET_STATE:
+      return initialState;
     default:
       return state;
   }

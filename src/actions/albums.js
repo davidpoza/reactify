@@ -28,3 +28,7 @@ export const getAlbum = (token, albumId) => async (dispatch, getState) => {
 export const cleanErrors = () => ({
   type: types.ALBUMS_CLEAN_ERRORS,
 });
+
+export const resetState = () => ({
+  type: types.ALBUMS_RESET_STATE,
+});

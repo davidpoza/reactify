@@ -63,3 +63,7 @@ export const setReload = (value) => ({
   type: types.SET_RELOAD,
   value
 });
+
+export const resetState = () => ({
+  type: types.PLAYER_RESET_STATE,
+});
