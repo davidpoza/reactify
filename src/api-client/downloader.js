@@ -22,7 +22,7 @@ export async function getResults({
     });
     return await res.json();
   } catch {
-    throw Error('Error during results fetch');
+    throw Error('Error during search results fetch');
   }
 };
 

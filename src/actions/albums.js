@@ -2,6 +2,7 @@ import { createAsyncAction } from 'redux-promise-middleware-actions';
 import { logAlbum } from './history';
 import * as albumApi from '../api-client/album';
 import { transformSongs } from  '../utils/utilities';
+import types from './types';
 
 export const getAlbums = createAsyncAction('ALBUMS', async (token) => {
   const res = await albumApi.getAlbum({token});
@@ -23,3 +24,7 @@ export const getAlbum = (token, albumId) => async (dispatch, getState) => {
   await dispatch(logAlbum(getState().albums.albumFetched));
   return albumData;
 }
+
+export const cleanErrors = () => ({
+  type: types.ALBUMS_CLEAN_ERRORS,
+});

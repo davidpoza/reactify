@@ -6,6 +6,9 @@ const actions = [
   'TRANSPARENT_TOOLBAR',
   'OPAQUE_TOOLBAR',
 
+  // albums
+  'ALBUMS_CLEAN_ERRORS',
+
   // player
   'ADD_TO_QUEUE',
   'REPLACE_QUEUE',

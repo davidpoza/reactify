@@ -19,7 +19,7 @@ export async function getAlbum({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during album/s fetch');
   }
 };
 
@@ -42,7 +42,7 @@ export async function getAlbumSongs({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during album songs list fetch');
   }
 };
 
@@ -65,7 +65,7 @@ export async function searchSong({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during song search');
   }
 };
 
@@ -88,6 +88,6 @@ export async function searchAlbum({
     });
     return await res.json();
   } catch {
-    return -1
+    throw Error('Error during album search');
   }
 };
