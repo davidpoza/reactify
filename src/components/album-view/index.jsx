@@ -78,7 +78,9 @@ const mapStateToProps = (state) => {
   return {
     user: state.user.current,
     album: state.albums.albumFetched,
-    loading: state.albums.isLoading
+    loading: state.albums.isLoading,
+    error: state.albums.error,
+    errorMessage: state.albums.errorMessage,
   }
 }
 
@@ -90,7 +92,7 @@ const mapDispatchToProps = (dispatch) => {
     pause: () => dispatch(pause()),
     setReload: (val) => dispatch(setReload(val)),
     logAlbum: (obj) => dispatch(logAlbum(obj)),
-    getAlbum: (token, albumId) => dispatch(getAlbum(token, albumId))
+    getAlbum: (token, albumId) => dispatch(getAlbum(token, albumId)),
   }
 }
 
