@@ -4,6 +4,8 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = {
   entry: {
     main: './src/index.js',
@@ -53,7 +55,7 @@ module.exports = {
       filename: "./index.html"
     }),
     new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
-      PUBLIC_URL: process.env.NODE_ENV === 'production' ? 'http://localhost:8000' : 'http://localhost:8080' ,
+      PUBLIC_URL: isProd ? 'http://localhost:8000' : 'http://localhost:8080' ,
     }),
     new CopyPlugin({
       patterns: [
@@ -76,6 +78,7 @@ module.exports = {
     contentBase: './build',
     historyApiFallback: true
   },
+  devtool: isProd ? 'eval-source-map' : 'source-map',
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {
