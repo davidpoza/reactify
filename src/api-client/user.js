@@ -1,4 +1,8 @@
+import get from 'lodash.get';
+
+// own
 import config from '../utils/config';
+import { CustomError } from '../utils/utilities';
 
 export async function login(email, password) {
   try {
@@ -12,12 +16,17 @@ export async function login(email, password) {
         password,
       }),
     });
-    return await res.json();
-  } catch {
-    throw Error('Connection error during login');
+    const result = await res.json();
+    if (result.error) {
+      throw new CustomError(get(result,'message[0].messages[0].message'));
+    }
+    return result;
+  } catch (err) {
+    console.log("-->",err)
+    if (err instanceof CustomError) {
+      throw err;
+    } else {
+      throw Error('login failed due to connection problems.');
+    }
   }
-};
-
-export function login2() {
-
 };
