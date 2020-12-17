@@ -64,6 +64,7 @@ function Login(props) {
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.user.isLoading,
     user: state.user.current,
     error: state.user.error,
     errorMessage: state.user.errorMessage,
