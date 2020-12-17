@@ -13,9 +13,17 @@ import withLoader from '../../hocs/with-loader';
 import withIsMobile from '../../hocs/with-is-mobile';
 
 function AlbumList({
-  user, getAlbums, albums, isMobile, albumsArray, absoluteUrls, disablePlay
+  user, getAlbums, albums, isMobile, albumsArray, absoluteUrls, disablePlay, cleanErrors
 }) {
   const classes = useStyles();
+
+  // clean results before close site
+  useEffect(() => {
+    window.addEventListener('beforeunload', cleanErrors);
+    return () => {
+      window.removeEventListener('beforeunload', cleanErrors);
+    }
+  }, []);
 
   useEffect(() => {
     if (!albumsArray) {
