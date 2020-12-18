@@ -45,7 +45,7 @@ function Login(props) {
           <Typography variant="h1" className={classes.title}>Reactify</Typography>
           <div>
             <TextField
-              id="email" label="Email" variant="outlined" className={classes.email}
+              id="email" label="Email" variant="outlined" className={classes.email} autoFocus={true}
               value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div>
