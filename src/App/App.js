@@ -25,6 +25,15 @@ const AlbumsView = React.lazy(() => import('../components/albums-view'));
 const ProfileView = React.lazy(() => import('../components/profile-view'));
 const DownloaderView = React.lazy(() => import('../components/downloader-view'));
 
+// Since they are lazy I have to add a definition of name in order to use it on private-route
+HomeView.name = 'HomeView';
+QueueView.name = 'QueueView';
+AlbumView.name = 'AlbumView';
+AlbumPreviewView.name = 'AlbumPreviewView';
+AlbumsView.name = 'AlbumsView';
+ProfileView.name = 'ProfileView';
+DownloaderView.name = 'DownloaderView';
+
 const Search = () => {
   return <p>Search</p>;
 }

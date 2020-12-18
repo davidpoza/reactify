@@ -19,7 +19,16 @@ import { getAlbum } from '../../actions/albums';
 import withLoader from '../../hocs/with-loader';
 
 function AlbumView({
-   user, makeToolbarTransparent, replaceQueue, play, setReload, pause, logAlbum, getAlbum, album, viewClasses,
+  album,
+  getAlbum,
+  logAlbum,
+  makeToolbarTransparent,
+  pause,
+  play,
+  replaceQueue,
+  setReload,
+  user,
+  viewClasses,
 }) {
   const color1 = 'blue';
   const color2 = 'pink';
@@ -95,5 +104,7 @@ const mapDispatchToProps = (dispatch) => {
     getAlbum: (token, albumId) => dispatch(getAlbum(token, albumId)),
   }
 }
+
+AlbumView.displayName = 'album-view';
 
 export default connect(mapStateToProps, mapDispatchToProps)(withLoader(AlbumView));
