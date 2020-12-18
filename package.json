@@ -59,7 +59,9 @@
     "workbox-webpack-plugin": "^6.0.2"
   },
   "jest": {
-    "setupFilesAfterEnv": ["./src/setupTests.js"]
+    "setupFilesAfterEnv": ["./src/setupTests.js"],
+    "collectCoverage": true,
+    "coverageReporters": ["html"]
   },
   "proxy": "http://localhost:3001"
 }
