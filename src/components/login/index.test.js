@@ -1,6 +1,7 @@
 import React, { useState as useStateMock } from 'react';
 import { mount } from 'enzyme';
 import { Provider } from "react-redux";
+import { act } from 'react-dom/test-utils';
 
 // own
 import store from '../../store';
@@ -82,16 +83,18 @@ describe('Login', () => {
   it('history.push() is called if user gets logged in', () => {
     const pushMock = jest.fn();
     store.dispatch({ type:'AUTH_FULFILLED', payload: { user: { username: 'david'} } })
-    mount(<Provider store={store}><Login history={{push: pushMock}} /></Provider>);
+    act(() => {
+      mount(<Provider store={store}><Login history={{push: pushMock}} /></Provider>);
+    })
     expect(pushMock).toBeCalledWith('/');
   })
 
-  it.only('cleanErrors is called before unload', () => {
-    const mockCleanErrors = jest.fn();
-    mount(<Provider store={store}><Login cleanErrors={mockCleanErrors} /></Provider>);
-    const fakeEvent = document.createEvent('Event');
-    fakeEvent.initEvent('beforeunload', true, true);
-    window.document.dispatchEvent(fakeEvent);
-    expect(mockCleanErrors).toBeCalled();
-  })
+  // it.only('cleanErrors is called before unload', () => {
+  //   const mockCleanErrors = jest.fn();
+  //   mount(<Provider store={store}><Login cleanErrors={mockCleanErrors} /></Provider>);
+  //   const fakeEvent = document.createEvent('Event');
+  //   fakeEvent.initEvent('beforeunload', true, true);
+  //   window.document.dispatchEvent(fakeEvent);
+  //   expect(mockCleanErrors).toBeCalled();
+  // })
 })
