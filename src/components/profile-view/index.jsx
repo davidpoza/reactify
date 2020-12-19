@@ -15,6 +15,10 @@ function ProfileView({
 }) {
   const classes = useStyles();
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className={viewClasses}>
       <h1>My profile</h1>
