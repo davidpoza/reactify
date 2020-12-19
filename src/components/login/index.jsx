@@ -52,7 +52,7 @@ function Login(props) {
             <TextField id="password" type="password" label="Password" variant="outlined" className={classes.password}
               value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <Button variant="contained" color="primary" type="submit" disableElevation disabled={!password || !email}>
+          <Button variant="contained" color="primary" type="submit" disableElevation disabled={!email || !password }>
             Login
           </Button>
         </form>
