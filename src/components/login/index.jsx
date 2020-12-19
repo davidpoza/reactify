@@ -20,6 +20,7 @@ function Login(props) {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
+    console.log("->", history)
     if (get(user, 'user')) {
       history.push("/");
     }

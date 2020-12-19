@@ -8,10 +8,14 @@ import Login from '../login';
 import { getAuth, resetState } from '../../actions/user';
 
 
-// mocks
 jest.mock('../../actions/user', () => ({
-  getAuth: jest.fn()
+  ...jest.requireActual('../../actions/user'),
+  getAuth: jest.fn(),
+  resetState: jest.fn(),
 }));
+
+getAuth.fulfilled = 'AUTH_FULFILLED';
+
 
 jest.mock('react', () => {
   const original = jest.requireActual('react');
@@ -53,7 +57,7 @@ describe('Login', () => {
     expect(setState).toBeCalledWith('1234');
   })
 
-  it.only('submit button gets enabled only if email and password are typed', () => {
+  it('submit button gets enabled only if email and password are typed', () => {
     useStateMock.mockImplementation(jest.requireActual('react').useState);
     const wrapper = mount(<Provider store={store}><Login/></Provider>);
     const button = wrapper.find('button');
@@ -73,5 +77,21 @@ describe('Login', () => {
     const form = wrapper.find('form');
     form.simulate('submit');
     expect(getAuth).toBeCalled();
+  })
+
+  it('history.push() is called if user gets logged in', () => {
+    const pushMock = jest.fn();
+    store.dispatch({ type:'AUTH_FULFILLED', payload: { user: { username: 'david'} } })
+    mount(<Provider store={store}><Login history={{push: pushMock}} /></Provider>);
+    expect(pushMock).toBeCalledWith('/');
+  })
+
+  it.only('cleanErrors is called before unload', () => {
+    const mockCleanErrors = jest.fn();
+    mount(<Provider store={store}><Login cleanErrors={mockCleanErrors} /></Provider>);
+    const fakeEvent = document.createEvent('Event');
+    fakeEvent.initEvent('beforeunload', true, true);
+    window.document.dispatchEvent(fakeEvent);
+    expect(mockCleanErrors).toBeCalled();
   })
 })

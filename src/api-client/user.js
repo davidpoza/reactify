@@ -22,7 +22,6 @@ export async function login(email, password) {
     }
     return result;
   } catch (err) {
-    console.log("-->",err)
     if (err instanceof CustomError) {
       throw err;
     } else {
