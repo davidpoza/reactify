@@ -43,6 +43,7 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
+    "@types/jest": "^26.0.19",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
     "css-loader": "^5.0.1",
@@ -60,9 +61,13 @@
     "workbox-webpack-plugin": "^6.0.2"
   },
   "jest": {
-    "setupFilesAfterEnv": ["./src/setupTests.js"],
+    "setupFilesAfterEnv": [
+      "./src/setupTests.js"
+    ],
     "collectCoverage": true,
-    "coverageReporters": ["html"]
+    "coverageReporters": [
+      "html"
+    ]
   },
   "proxy": "http://localhost:3001"
 }
