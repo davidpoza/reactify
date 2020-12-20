@@ -72,6 +72,9 @@ function AlbumPreviewView({
 
       </div>
     </div>
+    <div className={classes.warn}>
+      At this moment I don't check if album is already downloaded so click on download only one time. Album'll be available on library a couple of minutes later ;-)
+    </div>
     <div>
        <IconButton title="Load album on music library" onClick={handleDownload}>
         <DownloadIcon className={classes.playIcon} />

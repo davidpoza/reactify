@@ -38,6 +38,14 @@ export default makeStyles((theme) => ({
     '&:hover': {
       transform: 'scale(1.1)',
     }
+  },
+  warn: {
+    fontSize: '0.8em',
+    color: '#d63934',
+    backgroundColor: '#e6f0f9',
+    padding: '1em',
+    margin: '0 10px',
+    borderRadius: '5px',
   }
 })
 );
