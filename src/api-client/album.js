@@ -220,7 +220,7 @@ export async function createAlbum({
     album.songs = fulfilledSongs.map(s => s.id);
 
     // look for artist, if not found then create it
-    artist = await searchArtist({ token, text: album.artist });
+    [artist] = await searchArtist({ token, text: album.artist });
     if (!artist || artist.length === 0) {
       artist = await createArtist({ token, artist: { name: album.artist }});
     }
