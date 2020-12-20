@@ -1,4 +1,7 @@
 import { createAsyncAction } from 'redux-promise-middleware-actions';
+import get from 'lodash.get';
+
+// own
 import { logAlbum } from './history';
 import * as albumApi from '../api-client/album';
 import { transformSongs } from  '../utils/utilities';
@@ -12,7 +15,7 @@ export const getAlbums = createAsyncAction('ALBUMS', async (token) => {
 export const _getAlbum = createAsyncAction('ALBUM', async (token, albumId) => {
   console.log("lanzada")
   const albumData = await albumApi.getAlbum({token, albumId});
-  const albumObj = { name: albumData.name, artist: albumData.artists && albumData.artists[0].name, cover: albumData.cover && albumData.cover.url };
+  const albumObj = { name: albumData.name, artist: get(albumData, 'artists[0].name'), cover: get(albumData, 'cover.url') };
   const songs = await albumApi.getAlbumSongs({ token: token, albumId});
   albumData.songs = transformSongs(songs, albumObj);
   return albumData;
