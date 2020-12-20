@@ -3,5 +3,5 @@ module.exports = {
     "../src/setupTests.js"
   ],
   preset: 'jest-puppeteer',
-  testRegex: './*\\.(test|spec)\\.js$',
+  testRegex: './*\\.(spec)\\.js$',
 }

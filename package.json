@@ -69,6 +69,7 @@
     "setupFilesAfterEnv": [
       "./src/setupTests.js"
     ],
+    "testRegex": "./*\\.(test)\\.js$",
     "collectCoverage": true,
     "coverageReporters": [
       "html"

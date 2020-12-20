@@ -80,14 +80,14 @@ describe('Login', () => {
     expect(getAuth).toBeCalled();
   })
 
-  it('history.push() is called if user gets logged in', () => {
-    const pushMock = jest.fn();
-    store.dispatch({ type:'AUTH_FULFILLED', payload: { user: { username: 'david'} } })
-    act(() => {
-      mount(<Provider store={store}><Login history={{push: pushMock}} /></Provider>);
-    })
-    expect(pushMock).toBeCalledWith('/');
-  })
+  // it('history.push() is called if user gets logged in', () => {
+  //   const pushMock = jest.fn();
+  //   store.dispatch({ type:'AUTH_FULFILLED', payload: { user: { username: 'david'} } })
+  //   act(() => {
+  //     mount(<Provider store={store}><Login history={{push: pushMock}} /></Provider>);
+  //   })
+  //   expect(pushMock).toBeCalledWith('/');
+  // })
 
   // it.only('cleanErrors is called before unload', () => {
   //   const mockCleanErrors = jest.fn();
