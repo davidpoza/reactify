@@ -54,7 +54,7 @@ export function transformSongs(arrSongs, albumData) {
       artist: albumData.artist,
       seconds: e.duration,
       cover: albumData.cover,
-      audio: e.audio.url,
+      audio: e.audio,
     });
   });
 }
@@ -68,4 +68,14 @@ export class CustomError extends Error {
     super(message);
     this.name = "CustomError";
   }
+}
+
+export async function getBlobFromUrl(imageUrl, imageName) {
+  const response = await fetch(imageUrl, {
+    responseType: 'blob',
+  });
+  const data = await response.blob();
+  const mimeType = response.headers['content-type'];
+  const imageFile = new File([data], imageName, { type: mimeType });
+  return imageFile;
 }

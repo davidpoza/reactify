@@ -6,6 +6,7 @@ import SongsList from '../songs-list';
 import useStyles from './styles.js'
 import { makeToolbarTransparent } from '../../actions/ui';
 import { getAlbumSongs, setAlbumPreview } from '../../actions/downloader';
+import { createAlbum } from '../../api-client/album';
 import withLoader from '../../hocs/with-loader';
 
 function AlbumPreviewView({
@@ -45,6 +46,10 @@ function AlbumPreviewView({
     }));
   }
 
+  async function handleDownload() {
+    await createAlbum({ token: user.jwt, album });
+  }
+
   if (!album ) {
     return null;
   }
@@ -58,13 +63,15 @@ function AlbumPreviewView({
         <h3 className={classes.data}>ALBUM</h3>
         <h1 className={classes.title}>{album.name}</h1>
         <h2 className={classes.data}>{album.artist}</h2>
+
       </div>
     </div>
-    <div>
-      {/* <IconButton title="Play album" onClick={handleOnClickPlay}>
+    {/*<div>
+       <IconButton title="Play album" onClick={handleOnClickPlay}>
         <PlayIcon className={classes.playIcon} />
-      </IconButton> */}
-    </div>
+      </IconButton>
+    </div>*/}
+    <div onClick={handleDownload}>Download</div>
     <SongsList songs={transformToDeezerFormat(album.songs)} heightOffset={90} />
   </div>);
 }
