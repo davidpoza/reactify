@@ -41,6 +41,7 @@ function AlbumPreviewView({
     return songs.map(s => ({
       name: s.name,
       artist: s.artist,
+      seconds: s.duration,
     }));
   }
 
