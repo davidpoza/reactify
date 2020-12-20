@@ -162,6 +162,18 @@ function Player({
     setReload(false);
   }
 
+  function composeUrl() {
+    let result = "";
+    result += Config.API_DOWNLOADER_HOST;
+    result += '/downloads/albums/';
+    result += playerState.queue[0].artist.replace('/', '');
+    result += ' - ';
+    result += playerState.queue[0].album.replace('/', '');
+    result += '/';
+    result += playerState.queue[0].audio;
+    return encodeURI(result);
+  }
+
   return (
     <ErrorBoundary message="Error ocurrend on player" onReset={resetState}>
       <div className={classes.root}>
@@ -224,7 +236,7 @@ function Player({
         </div>
         <audio id="player" preload='none' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
           <source
-            src={`${Config.API_DOWNLOADER_HOST}/downloads/albums/${playerState.queue[0].artist} - ${playerState.queue[0].album}/${playerState.queue[0].audio}`} type='audio/flac'
+            src={composeUrl()} type='audio/flac'
           />
         </audio>
       </div>
