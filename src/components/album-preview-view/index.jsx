@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
+// material ui
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+import { IconButton } from '@material-ui/core';
+
 // own
 import SongsList from '../songs-list';
 import useStyles from './styles.js'
@@ -68,12 +72,11 @@ function AlbumPreviewView({
 
       </div>
     </div>
-    {/*<div>
-       <IconButton title="Play album" onClick={handleOnClickPlay}>
-        <PlayIcon className={classes.playIcon} />
+    <div>
+       <IconButton title="Load album on music library" onClick={handleDownload}>
+        <DownloadIcon className={classes.playIcon} />
       </IconButton>
-    </div>*/}
-    <div onClick={handleDownload}>Download</div>
+    </div>
     <SongsList songs={transformToDeezerFormat(album.songs)} heightOffset={90} />
   </div>);
 }
