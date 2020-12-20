@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropType from 'prop-types';
+import get from 'lodash.get';
 
 // material ui
 import Grid from '@material-ui/core/Grid';
@@ -39,7 +40,7 @@ function AlbumList({
         key={album.id}
         id={album.id}
         name={album.name}
-        artist={album.artists[0].name}
+        artist={get(album, 'artists[0].name')}
         cover={album.cover.url}
       />
     </Grid>);
