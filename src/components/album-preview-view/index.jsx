@@ -7,13 +7,14 @@ import useStyles from './styles.js'
 import { makeToolbarTransparent } from '../../actions/ui';
 import { getAlbumSongs, setAlbumPreview } from '../../actions/downloader';
 import { createAlbum } from '../../api-client/album';
+import { triggerDownload } from '../../api-client/downloader';
 import withLoader from '../../hocs/with-loader';
 
 function AlbumPreviewView({
    user, makeToolbarTransparent, viewClasses, getAlbumSongs, album, setAlbumPreview
 }) {
-  const color1 = 'blue';
-  const color2 = 'pink';
+  const color1 = '#5f77a6';
+  const color2 = '#34415b';
   const classes = useStyles();
 
   useEffect(() => {
@@ -40,7 +41,7 @@ function AlbumPreviewView({
       return [];
     }
     return songs.map(s => ({
-      name: s.name,
+      name: s.title,
       artist: s.artist,
       seconds: s.duration,
     }));
@@ -48,6 +49,7 @@ function AlbumPreviewView({
 
   async function handleDownload() {
     await createAlbum({ token: user.jwt, album });
+    await triggerDownload({ albumId: album.id});
   }
 
   if (!album ) {

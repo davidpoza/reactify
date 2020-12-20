@@ -30,8 +30,8 @@ function AlbumView({
   user,
   viewClasses,
 }) {
-  const color1 = 'blue';
-  const color2 = 'pink';
+  const color1 = '#00669d';
+  const color2 = '#003958';
   const classes = useStyles();
   const { id } = useParams();
 
