@@ -224,7 +224,7 @@ function Player({
         </div>
         <audio id="player" preload='none' ref={player} onCanPlay={onCanPlayHandler} onEnded={onEndedHandler}>
           <source
-            src={`${Config.API_HOST}${playerState.queue[0].audio}`} type='audio/flac'
+            src={`${Config.API_DOWNLOADER_HOST}/downloads/albums/${playerState.queue[0].artist} - ${playerState.queue[0].album}/${playerState.queue[0].audio}`} type='audio/flac'
           />
         </audio>
       </div>
