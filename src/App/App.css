@@ -1,8 +1,40 @@
-.App {
-  margin: 3em auto;
-  max-width: 50em;
+#root, body {
+  background-color:#121212;
+
 }
 
-.App h1 {
-  text-align: center;
+::-webkit-scrollbar-track  {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #121212;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #5a5a5a;
+}
+
+#updateApplication {
+  background-color: rgba(0, 0, 0, .7);
+  bottom: 2em;
+  box-shadow: 0px 6px 10px -5px rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  color: white;
+  display: none;
+  font-size: .9em;
+  left: 2em;
+  position: absolute;
+  padding: 1em;
+  z-index: 999999999;
+}
+#updateApplication.show {
+  display: block;
+}
+#reload {
+  margin: 0 0 0 1em;
 }

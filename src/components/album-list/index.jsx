@@ -1,0 +1,93 @@
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import PropType from 'prop-types';
+import get from 'lodash.get';
+
+// material ui
+import Grid from '@material-ui/core/Grid';
+
+// own
+import useStyles from './styles.js';
+import AlbumCover from '../album-cover';
+import { getAlbums, cleanErrors } from '../../actions/albums';
+import withLoader from '../../hocs/with-loader';
+import withIsMobile from '../../hocs/with-is-mobile';
+
+function AlbumList({
+  user, getAlbums, albums, isMobile, albumsArray, absoluteUrls, disablePlay, cleanErrors
+}) {
+  const classes = useStyles();
+
+  // clean results before close site
+  useEffect(() => {
+    window.addEventListener('beforeunload', cleanErrors);
+    return () => {
+      window.removeEventListener('beforeunload', cleanErrors);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!albumsArray) {
+      getAlbums(user.jwt);
+    }
+  }, []);
+
+  const render = (album, index) => {
+    return (<Grid item key={`$album-grid-item-${album.id}`} >
+      <AlbumCover
+        disablePlay={disablePlay}
+        absoluteUrls={absoluteUrls}
+        key={album.id}
+        id={album.id}
+        name={album.name}
+        artist={get(album, 'artists[0].name')}
+        cover={album.cover.url}
+      />
+    </Grid>);
+  };
+
+  return (
+    <Grid
+      className={classes.grid} justify={isMobile ? "center" : undefined} container spacing={isMobile ? 1 : 3}>
+      {
+        albumsArray
+        ? albumsArray.map(render)
+        : albums.albumsFetched.map(render)
+      }
+    </Grid>
+  );
+}
+
+const mapStateToProps = (state) => {
+  return ({
+    user: state.user.current,
+    albums: state.albums,
+    loading: state.albums.isLoading,
+    error: state.albums.error,
+    errorMessage: state.albums.errorMessage,
+  });
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    getAlbums: (token, albumId) => dispatch(getAlbums(token, albumId)),
+    cleanErrors: () => dispatch(cleanErrors()),
+  });
+}
+
+AlbumList.propTypes = {
+  disablePlay: PropType.bool,
+  absoluteUrls: PropType.bool,
+  albumsArray: PropType.arrayOf(
+    PropType.shape({
+      id: PropType.number,
+      artists: PropType.array,
+      name: PropType.string,
+      cover:PropType.shape({
+        url: PropType.string,
+      }),
+    })
+  ),
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withLoader(withIsMobile(AlbumList)));
