@@ -55,7 +55,7 @@ module.exports = {
       filename: "./index.html"
     }),
     new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
-      PUBLIC_URL: isProd ? 'http://localhost:5000' : 'http://localhost:8080' ,
+      PUBLIC_URL: isProd ? 'https://reactify.davidinformatico.com' : 'http://localhost:8080' ,
     }),
     new CopyPlugin({
       patterns: [
